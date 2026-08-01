@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { canonicalizeUrl, refreshFeed } from '../server/sync.mjs'
+import { canonicalizeUrl, compareNoticesByPriority, refreshFeed } from '../server/sync.mjs'
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const apiDir = path.join(rootDir, 'public', 'api')
@@ -38,7 +38,7 @@ for (const notice of freshFeed.notices) {
 
 const exportedFeed = {
   ...freshFeed,
-  notices: [...merged.values()].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  notices: [...merged.values()].sort(compareNoticesByPriority)
 }
 const version = await readFile(path.join(rootDir, 'data', 'version.json'), 'utf8')
 
@@ -53,4 +53,3 @@ console.log(JSON.stringify({
   successfulSources: `${freshFeed.meta.successfulSourceCount}/${freshFeed.meta.sourceCount}`,
   carriedForward: Math.max(0, exportedFeed.notices.length - freshFeed.notices.length)
 }, null, 2))
-

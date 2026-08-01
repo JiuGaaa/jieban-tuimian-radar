@@ -1,9 +1,14 @@
 import puppeteer from 'puppeteer-core'
+import { readFile } from 'node:fs/promises'
+
+const version = JSON.parse(await readFile(new URL('../data/version.json', import.meta.url), 'utf8'))
 
 const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 const browser = await puppeteer.launch({
   executablePath: chromePath,
   headless: true,
+  timeout: 90_000,
+  protocolTimeout: 120_000,
   userDataDir: '.toolchains/qa-chrome-profile',
   args: ['--no-first-run', '--disable-gpu', '--disable-gpu-sandbox', '--no-sandbox', '--disable-dev-shm-usage']
 })
@@ -52,8 +57,8 @@ await page.evaluate(() => {
 })
 await page.waitForSelector('.notice-main')
 await page.evaluate(() => {
-  const noticeButtons = document.querySelectorAll('.notice-main')
-  noticeButtons[0]?.click()
+  const noticeButton = document.querySelector('.notice-main[data-has-materials="true"]')
+  noticeButton?.click()
 })
 await page.waitForSelector('.notice-dialog')
 
@@ -75,7 +80,7 @@ await browser.close()
 if (
   metrics.documentWidth > metrics.viewportWidth ||
   metrics.bodyWidth > metrics.viewportWidth ||
-  !updateText.includes('v1.0.0') ||
+  !updateText.includes(`v${version.versionName}`) ||
   dialogMetrics.requirementCount === 0 ||
   dialogMetrics.materialCount === 0 ||
   claimFlow.taskCount < 8 ||

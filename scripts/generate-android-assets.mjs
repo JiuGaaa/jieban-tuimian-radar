@@ -6,7 +6,13 @@ const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 const root = process.cwd()
 const iconSvg = await readFile(path.join(root, 'public', 'icon.svg'), 'utf8')
 const iconUrl = `data:image/svg+xml;base64,${Buffer.from(iconSvg).toString('base64')}`
-const browser = await puppeteer.launch({ executablePath: chromePath, headless: true, args: ['--disable-gpu', '--no-first-run'] })
+const browser = await puppeteer.launch({
+  executablePath: chromePath,
+  headless: true,
+  timeout: 90_000,
+  protocolTimeout: 120_000,
+  args: ['--disable-gpu', '--disable-extensions', '--disable-background-networking', '--no-first-run']
+})
 
 const densities = [
   ['mdpi', 48, 108],
@@ -57,10 +63,10 @@ for (const [folder, width, height] of splashTargets) {
       *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
       body{display:grid;place-content:center;justify-items:center;background:#10243e;color:white;font-family:'Microsoft YaHei',sans-serif}
       img{width:${markSize}px;height:${markSize}px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.2))}
-      strong{margin-top:${Math.round(markSize * 0.18)}px;font-family:STZhongsong,serif;font-size:${Math.round(markSize * 0.3)}px;letter-spacing:.18em}
+      strong{margin-top:${Math.round(markSize * 0.18)}px;font-family:STZhongsong,serif;font-size:${Math.round(markSize * 0.24)}px;letter-spacing:.14em}
       span{margin-top:${Math.round(markSize * 0.08)}px;color:#b9c8d7;font-size:${Math.round(markSize * 0.105)}px;letter-spacing:.16em}
     </style>
-    <img src="${iconUrl}"><strong>揭榜</strong><span>28 推免雷达</span>
+    <img src="${iconUrl}"><strong>一推而就</strong><span>28 推免雷达</span>
   `)
   await page.screenshot({ path: outputPath })
   await page.close()

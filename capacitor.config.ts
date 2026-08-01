@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
   appId: 'cn.jieban.tuimian',
-  appName: '揭榜',
+  appName: '一推而就',
   webDir: 'dist',
   backgroundColor: '#f3f5f7',
   android: {

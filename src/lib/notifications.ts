@@ -2,6 +2,8 @@ import { Capacitor } from '@capacitor/core'
 import { LocalNotifications } from '@capacitor/local-notifications'
 import type { Notice } from '../types'
 
+const notificationIconUrl = `${import.meta.env.BASE_URL}icon.svg`
+
 export type NotificationState = 'granted' | 'denied' | 'unsupported' | 'prompt'
 
 export async function getNotificationState(): Promise<NotificationState> {
@@ -31,7 +33,7 @@ export async function sendTestNotification(): Promise<void> {
       notifications: [
         {
           id: 2801,
-          title: '揭榜 · 通知测试',
+          title: '一推而就 · 通知测试',
           body: '政策雷达已就位。检测到新的官方通知后会从这里提醒你。',
           schedule: { at: new Date(Date.now() + 1500) },
           extra: { route: '/notices' }
@@ -42,10 +44,10 @@ export async function sendTestNotification(): Promise<void> {
   }
 
   if (Notification.permission === 'granted') {
-    new Notification('揭榜 · 通知测试', {
+    new Notification('一推而就 · 通知测试', {
       body: '政策雷达已就位。检测到新的官方通知后会从这里提醒你。',
-      icon: '/icon.svg',
-      badge: '/icon.svg'
+      icon: notificationIconUrl,
+      badge: notificationIconUrl
     })
   }
 }
@@ -63,7 +65,7 @@ export async function notifyNewNotices(notices: Notice[]): Promise<void> {
     await LocalNotifications.schedule({
       notifications: [{
         id: Math.floor(Date.now() / 1000) % 2_000_000_000,
-        title: '揭榜 · 新政策到达',
+        title: '一推而就 · 新政策到达',
         body,
         schedule: { at: new Date(Date.now() + 1200) },
         extra: { route: '/notices', noticeId: newest.id }
@@ -73,6 +75,6 @@ export async function notifyNewNotices(notices: Notice[]): Promise<void> {
   }
 
   if ('Notification' in window && Notification.permission === 'granted') {
-    new Notification('揭榜 · 新政策到达', { body, icon: '/icon.svg', badge: '/icon.svg' })
+    new Notification('一推而就 · 新政策到达', { body, icon: notificationIconUrl, badge: notificationIconUrl })
   }
 }

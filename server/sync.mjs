@@ -7,6 +7,14 @@ import * as cheerio from 'cheerio'
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const seedNotices = JSON.parse(await readFile(path.join(rootDir, 'data', 'verified-notices.json'), 'utf8'))
 const sourceDefinitions = JSON.parse(await readFile(path.join(rootDir, 'data', 'sources.json'), 'utf8'))
+const universityPriorityData = JSON.parse(await readFile(path.join(rootDir, 'data', 'university-priority.json'), 'utf8'))
+
+const nationalSources = new Set(universityPriorityData.national)
+const schools985 = new Set(universityPriorityData['985'])
+const schools211 = new Set(universityPriorityData['211Non985'])
+const universityAliases = universityPriorityData.aliases
+const tierWeight = { '国家级': 0, '985': 1, '211': 2, '其他': 3 }
+const targetYearWeight = { '2028': 0, '2027': 1, '长期有效': 2 }
 
 const SYNC_INTERVAL_MS = 30 * 60 * 1000
 const FETCH_TIMEOUT_MS = 12_000
@@ -27,6 +35,27 @@ let feed = {
 
 function normalizeText(value = '') {
   return value.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
+function canonicalUniversity(name) {
+  const compact = name.replace(/[()（）·\s]/g, '')
+  return universityAliases[name] || universityAliases[compact] || name
+}
+
+export function getUniversityTier(university) {
+  const canonical = canonicalUniversity(university)
+  if (nationalSources.has(canonical)) return '国家级'
+  if (schools985.has(canonical)) return '985'
+  if (schools211.has(canonical)) return '211'
+  return '其他'
+}
+
+export function compareNoticesByPriority(a, b) {
+  const tierDifference = tierWeight[getUniversityTier(a.university)] - tierWeight[getUniversityTier(b.university)]
+  if (tierDifference) return tierDifference
+  const targetYearDifference = targetYearWeight[a.targetYear] - targetYearWeight[b.targetYear]
+  if (targetYearDifference) return targetYearDifference
+  return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
 }
 
 function hostMatches(host, patterns) {
@@ -210,7 +239,7 @@ async function verifySeedNotice(notice, checkedAt) {
 function mergeNotices(verifiedSeeds, discovered) {
   const byUrl = new Map()
   for (const notice of [...discovered, ...verifiedSeeds]) byUrl.set(canonicalizeUrl(notice.sourceUrl), notice)
-  return [...byUrl.values()].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  return [...byUrl.values()].sort(compareNoticesByPriority)
 }
 
 async function performSync() {

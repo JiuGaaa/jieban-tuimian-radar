@@ -23,8 +23,8 @@ export default defineConfig(({ mode }) => {
       includeAssets: ['icon.svg', 'maskable-icon.svg'],
       manifest: {
         id: basePath,
-        name: '揭榜 · 28推免雷达',
-        short_name: '揭榜',
+        name: '一推而就 · 28推免雷达',
+        short_name: '一推而就',
         description: '第一手推免政策雷达、资格判断与申请作战台',
         theme_color: '#10243e',
         background_color: '#f3f5f7',

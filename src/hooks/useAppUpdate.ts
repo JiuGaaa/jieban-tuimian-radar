@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Browser } from '@capacitor/browser'
 import { Capacitor } from '@capacitor/core'
+import bundledVersion from '../../data/version.json'
 import { buildApiUrl } from '../lib/api'
 
 export interface AppVersionInfo {
@@ -16,8 +17,8 @@ export interface AppVersionInfo {
 
 export type UpdateState = 'idle' | 'checking' | 'current' | 'available' | 'error'
 
-export const currentVersionCode = Number(import.meta.env.VITE_APP_VERSION_CODE || 1)
-export const currentVersionName = String(import.meta.env.VITE_APP_VERSION_NAME || '1.0.0')
+export const currentVersionCode = Number(import.meta.env.VITE_APP_VERSION_CODE || bundledVersion.versionCode)
+export const currentVersionName = String(import.meta.env.VITE_APP_VERSION_NAME || bundledVersion.versionName)
 
 function validateVersion(value: unknown): AppVersionInfo | null {
   if (!value || typeof value !== 'object') return null
@@ -82,4 +83,3 @@ export function useAppUpdate() {
 
   return { state, latest, message, check, download }
 }
-

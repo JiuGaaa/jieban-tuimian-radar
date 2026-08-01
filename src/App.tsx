@@ -7,6 +7,7 @@ import { useNoticeFeed } from './hooks/useNoticeFeed'
 import { usePersistentState } from './hooks/usePersistentState'
 import { formatDate, relativeDeadline } from './lib/date'
 import { calculateJmuSampleMatch } from './lib/matcher'
+import { compareNoticePriority, getUniversityTier } from './lib/universityPriority'
 import {
   getNotificationState,
   notifyNewNotices,
@@ -29,6 +30,7 @@ const tabs: Array<{ id: TabId; label: string; icon: 'home' | 'radar' | 'target' 
 ]
 
 const phases: Array<'全部' | NoticePhase> = ['全部', '国家政策', '本校推免', '夏令营', '预推免']
+const brandIconUrl = `${import.meta.env.BASE_URL}icon.svg`
 
 function App() {
   const { notices, meta, syncState, syncMessage, refresh } = useNoticeFeed()
@@ -56,8 +58,8 @@ function App() {
       const matchesPhase = phase === '全部' || notice.phase === phase
       const haystack = [notice.university, notice.institute, notice.title, notice.summary, ...notice.tags].join(' ').toLowerCase()
       return matchesPhase && (!query || haystack.includes(query))
-    })
-  }, [phase, search])
+    }).sort(compareNoticePriority)
+  }, [notices, phase, search])
 
   useEffect(() => {
     void getNotificationState().then(setNotificationState)
@@ -170,10 +172,10 @@ function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <button className="brand" onClick={() => navigate('home')} aria-label="返回揭榜首页">
-          <span className="brand-mark" aria-hidden="true">榜</span>
+        <button className="brand" onClick={() => navigate('home')} aria-label="返回一推而就首页">
+          <img className="brand-mark" src={brandIconUrl} alt="" aria-hidden="true" />
           <span>
-            <strong>揭榜</strong>
+            <strong>一推而就</strong>
             <small>28 推免雷达</small>
           </span>
         </button>
@@ -426,7 +428,7 @@ function NoticesPage({
         ))}
       </div>
 
-      <div className="result-caption"><span>{visibleNotices.length} 条结果</span><span>按核验时间排序</span></div>
+      <div className="result-caption"><span>{visibleNotices.length} 条结果</span><span>国家级 · 985 · 211 · 其他</span></div>
       <div className="notice-stack">
         {visibleNotices.length ? visibleNotices.map((notice) => (
           <NoticeCard
@@ -457,15 +459,21 @@ interface NoticeCardProps {
 
 function NoticeCard({ notice, saved, claimed, onOpen, onToggleSaved, onClaim }: NoticeCardProps) {
   const deadline = relativeDeadline(notice.deadline)
+  const universityTier = getUniversityTier(notice.university)
+  const tierClass = universityTier === '国家级' ? 'national' : universityTier
   return (
     <article className="notice-card">
       <div className="notice-topline">
-        <div className="source-level"><span>{notice.officialLevel}</span><b>官网</b></div>
+        <div className="source-level">
+          <span>{notice.officialLevel}</span>
+          {universityTier !== '其他' && <span className={`school-tier tier-${tierClass}`}>{universityTier}</span>}
+          <b>官网</b>
+        </div>
         <button className={saved ? 'icon-button saved' : 'icon-button'} onClick={onToggleSaved} aria-label={saved ? '取消收藏' : '收藏'}>
           <Icon name="bookmark" size={18} fill={saved ? 'currentColor' : 'none'} />
         </button>
       </div>
-      <button className="notice-main" onClick={onOpen}>
+      <button className="notice-main" data-has-materials={notice.materials.length > 0} onClick={onOpen}>
         <div className="notice-identity"><strong>{notice.university}</strong><span>{notice.institute}</span></div>
         <h3>{notice.title}</h3>
         <p>{notice.summary}</p>

@@ -1,7 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#10243e"/>
-  <path d="M146 98h220v316H146z" fill="#f7f4ee"/>
-  <path d="M182 174h148M182 224h148M182 274h94" stroke="#10243e" stroke-width="19" stroke-linecap="round"/>
-  <circle cx="318" cy="340" r="67" fill="#d65f36"/>
-  <path d="m287 340 21 21 42-48" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="一推而就：晨曦之路">
+  <defs>
+    <linearGradient id="dawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5c76b"/>
+      <stop offset="1" stop-color="#f28c45"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#f8f3e8"/>
+  <circle cx="256" cy="272" r="104" fill="url(#dawn)"/>
+  <path d="M0 272h512v240H0z" fill="#10243e"/>
+  <path d="M145 512c55-58 93-84 108-116 12-27-20-36-8-54 7-10 17-23 29-40h24c-21 26-31 41-27 53 6 17 42 22 43 55 1 35-30 63-24 102z" fill="#f8f3e8"/>
 </svg>
