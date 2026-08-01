@@ -1,0 +1,14 @@
+{
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "minimumSupportedVersionCode": 1,
+  "publishedAt": "2026-08-01T05:31:29.083Z",
+  "releaseNotes": [
+    "首个可安装的 Android 版本",
+    "每 30 分钟同步教育部、研招网和高校官网",
+    "支持在 App 内检查并下载后续版本"
+  ],
+  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.0.0/jieban-v1.0.0.apk",
+  "sha256": "7eddaae58737c50a19984b7aabacd9d6b4c42faa9e6705b90cf6791aaa8eb078",
+  "sizeBytes": 3455533
+}
