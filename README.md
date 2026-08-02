@@ -11,6 +11,8 @@
 - 政策搜索、类型筛选、收藏、详情与官网直达；
 - 揭榜后自动生成材料任务，任务进度保存在本机；
 - 个人档案、普通/特殊学术专长路径和可解释资格判断；
+- 邮箱注册登录、会话保持，以及档案/收藏/任务的跨设备云同步；
+- 本机与云端数据安全合并，Supabase 行级权限确保用户只能访问自己的数据；
 - PWA manifest、离线缓存、添加到主屏幕；
 - 检测到新官方公告后的 Web/Android 本地通知衔接；
 - Android 原生工程、品牌图标、通知图标和启动画面；
@@ -51,6 +53,32 @@ npm run sync:now
 ```
 
 接口健康状态：`http://127.0.0.1:8787/api/health`。
+
+## 账号系统
+
+账号服务使用 Supabase Auth 与 Postgres Row Level Security。未登录时应用仍可完整离线使用；登录后自动同步以下内容：
+
+- 学业档案；
+- 收藏和揭榜记录；
+- 作战台任务及完成状态。
+
+首次配置步骤：
+
+1. 创建 Supabase 项目；
+2. 在 SQL Editor 执行 `supabase/migrations/202608020001_user_app_data.sql`；
+3. 在 Authentication → URL Configuration 中把站点地址设为 `https://jiugaaa.github.io/jieban-tuimian-radar/`，并加入同一个 Redirect URL；
+4. 从 Project Settings → API 复制 Project URL 与 publishable key；
+5. 在本机创建不会提交的 `.env.production.local`：
+
+```env
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_your_key
+VITE_AUTH_REDIRECT_URL=https://jiugaaa.github.io/jieban-tuimian-radar/
+```
+
+6. 在 GitHub 仓库 Actions secrets 中设置 `SUPABASE_URL` 与 `SUPABASE_PUBLISHABLE_KEY`。
+
+客户端只能使用 publishable/anon key，绝不能将 `service_role` key 写入 APK、环境文件或 GitHub Pages 构建。
 
 ## 测试与 Web 构建
 

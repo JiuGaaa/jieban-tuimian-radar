@@ -101,3 +101,12 @@ export interface TaskItem {
   completed: boolean
   source: string
 }
+
+export interface UserAppSnapshot {
+  profile: UserProfile
+  savedNoticeIds: string[]
+  claimedNoticeIds: string[]
+  tasks: TaskItem[]
+}
+
+export type CloudSyncState = 'disabled' | 'signed-out' | 'loading' | 'syncing' | 'synced' | 'error'

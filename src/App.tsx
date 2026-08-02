@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
 import { Icon } from './components/Icon'
 import { emptyProfile, initialTasks } from './data/notices'
+import { useAccount, type AuthMode } from './hooks/useAccount'
 import { currentVersionName as currentAppVersionName, useAppUpdate } from './hooks/useAppUpdate'
+import { useCloudSync } from './hooks/useCloudSync'
 import { useNoticeFeed } from './hooks/useNoticeFeed'
 import { usePersistentState } from './hooks/usePersistentState'
 import { formatDate, relativeDeadline } from './lib/date'
@@ -15,7 +17,7 @@ import {
   sendTestNotification,
   type NotificationState
 } from './lib/notifications'
-import type { FeedMeta, Notice, NoticePhase, SyncState, TabId, TaskItem, UserProfile } from './types'
+import type { FeedMeta, Notice, NoticePhase, SyncState, TabId, TaskItem, UserAppSnapshot, UserProfile } from './types'
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -42,11 +44,35 @@ function App() {
   const [toast, setToast] = useState('')
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [notificationState, setNotificationState] = useState<NotificationState>('prompt')
+  const [authOpen, setAuthOpen] = useState(false)
+  const [authMode, setAuthMode] = useState<AuthMode>('signin')
   const [savedNoticeIds, setSavedNoticeIds] = usePersistentState<string[]>('jieban:saved', [])
   const [claimedNoticeIds, setClaimedNoticeIds] = usePersistentState<string[]>('jieban:claimed', [])
   const [knownNoticeIds, setKnownNoticeIds] = usePersistentState<string[]>('jieban:known-official-notices', [])
   const [tasks, setTasks] = usePersistentState<TaskItem[]>('jieban:tasks', initialTasks)
   const [profile, setProfile] = usePersistentState<UserProfile>('jieban:profile', emptyProfile)
+  const account = useAccount()
+
+  const appSnapshot = useMemo<UserAppSnapshot>(() => ({
+    profile,
+    savedNoticeIds,
+    claimedNoticeIds,
+    tasks
+  }), [claimedNoticeIds, profile, savedNoticeIds, tasks])
+
+  const applyCloudSnapshot = useCallback((snapshot: UserAppSnapshot) => {
+    setProfile(snapshot.profile)
+    setSavedNoticeIds(snapshot.savedNoticeIds)
+    setClaimedNoticeIds(snapshot.claimedNoticeIds)
+    setTasks(snapshot.tasks)
+  }, [setClaimedNoticeIds, setProfile, setSavedNoticeIds, setTasks])
+
+  const cloudSync = useCloudSync({
+    configured: account.configured,
+    userId: account.user?.id ?? null,
+    snapshot: appSnapshot,
+    applySnapshot: applyCloudSnapshot
+  })
 
   const matchResult = useMemo(() => calculateJmuSampleMatch(profile), [profile])
   const completedTasks = tasks.filter((task) => task.completed).length
@@ -76,6 +102,13 @@ function App() {
     const timer = window.setTimeout(() => setToast(''), 2600)
     return () => window.clearTimeout(timer)
   }, [toast])
+
+  useEffect(() => {
+    if (!account.recoveryRequested) return
+    setAuthMode('recovery')
+    setAuthOpen(true)
+    setActiveTab('profile')
+  }, [account.recoveryRequested])
 
   useEffect(() => {
     if (syncState !== 'online' || !meta.lastSyncedAt || !notices.length) return
@@ -230,9 +263,23 @@ function App() {
             matchResult={matchResult}
             notificationState={notificationState}
             appUpdate={appUpdate}
+            account={account}
+            cloudSync={cloudSync}
             onUpdate={updateProfile}
             onEnableNotifications={enableNotifications}
             onInstall={installApp}
+            onOpenAuth={(mode) => {
+              setAuthMode(mode)
+              setAuthOpen(true)
+            }}
+            onSignOut={async () => {
+              await account.signOut()
+              setToast('已退出账号，本机资料仍然保留')
+            }}
+            onSyncNow={async () => {
+              const synced = await cloudSync.syncNow()
+              setToast(synced ? '本机与云端已同步' : '同步失败，请检查网络后重试')
+            }}
           />
         )}
       </main>
@@ -260,6 +307,18 @@ function App() {
           onClose={() => setSelectedNotice(null)}
           onToggleSaved={() => toggleSaved(selectedNotice.id)}
           onClaim={() => claimNotice(selectedNotice)}
+        />
+      )}
+
+      {authOpen && (
+        <AuthDialog
+          initialMode={authMode}
+          account={account}
+          onClose={() => setAuthOpen(false)}
+          onDone={(message) => {
+            setAuthOpen(false)
+            setToast(message)
+          }}
         />
       )}
 
@@ -550,18 +609,76 @@ interface ProfilePageProps {
   matchResult: ReturnType<typeof calculateJmuSampleMatch>
   notificationState: NotificationState
   appUpdate: ReturnType<typeof useAppUpdate>
+  account: ReturnType<typeof useAccount>
+  cloudSync: ReturnType<typeof useCloudSync>
   onUpdate: <K extends keyof UserProfile>(key: K, value: UserProfile[K]) => void
   onEnableNotifications: () => Promise<void>
   onInstall: () => Promise<void>
+  onOpenAuth: (mode: AuthMode) => void
+  onSignOut: () => Promise<void>
+  onSyncNow: () => Promise<void>
 }
 
-function ProfilePage({ profile, matchResult, notificationState, appUpdate, onUpdate, onEnableNotifications, onInstall }: ProfilePageProps) {
+function ProfilePage({
+  profile,
+  matchResult,
+  notificationState,
+  appUpdate,
+  account,
+  cloudSync,
+  onUpdate,
+  onEnableNotifications,
+  onInstall,
+  onOpenAuth,
+  onSignOut,
+  onSyncNow
+}: ProfilePageProps) {
+  const accountStatusLabel = account.initializing
+    ? '正在恢复登录状态'
+    : cloudSync.state === 'synced'
+      ? '云端已同步'
+      : cloudSync.state === 'syncing' || cloudSync.state === 'loading'
+        ? '正在同步'
+        : cloudSync.state === 'error'
+          ? '同步需重试'
+          : account.configured
+            ? '仅保存在本机'
+            : '等待连接服务'
+
   return (
     <>
       <section className="page-intro profile-intro">
-        <span className="eyebrow">本地优先保存</span>
+        <span className="eyebrow">本机优先 · 登录后同步</span>
         <h1>我的档案</h1>
-          <p>档案只保存在这台设备；资格判断依据你提供的2027届校内正式文件，不会冒充28届最终结论。</p>
+        <p>未登录时资料留在本机；登录后会在 Android 与网页版之间安全同步。</p>
+      </section>
+
+      <section className={`account-card ${account.user ? 'signed-in' : 'signed-out'} ${cloudSync.state}`}>
+        <div className="account-dawn" aria-hidden="true"><span /><i /></div>
+        <div className="account-copy">
+          <div className="account-heading">
+            <div>
+              <span className="eyebrow">云端账号</span>
+              <h2>{account.user?.email ?? '把作战进度带在身边'}</h2>
+            </div>
+            <span className={`account-state ${cloudSync.state}`}>{accountStatusLabel}</span>
+          </div>
+          <p>{account.user ? cloudSync.message : account.configured ? '登录后同步档案、收藏、揭榜记录和材料任务；本机资料不会被简单覆盖。' : '账号界面已经就绪，连接云端项目后即可注册和登录。'}</p>
+          {account.user && cloudSync.lastSyncedAt && <small>最近保存：{formatSyncTime(cloudSync.lastSyncedAt)}</small>}
+          <div className="account-actions">
+            {account.user ? (
+              <>
+                <button className="primary-button" disabled={cloudSync.state === 'syncing' || cloudSync.state === 'loading'} onClick={() => void onSyncNow()}>立即同步</button>
+                <button className="secondary-button" onClick={() => void onSignOut()}>退出登录</button>
+              </>
+            ) : (
+              <>
+                <button className="primary-button" disabled={!account.configured || account.initializing} onClick={() => onOpenAuth('signin')}>登录</button>
+                <button className="secondary-button" disabled={!account.configured || account.initializing} onClick={() => onOpenAuth('signup')}>创建账号</button>
+              </>
+            )}
+          </div>
+        </div>
       </section>
 
       <section className="match-card">
@@ -641,8 +758,105 @@ function ProfilePage({ profile, matchResult, notificationState, appUpdate, onUpd
         </div>
       </section>
 
-      <div className="privacy-note"><Icon name="shield" size={18} /><span>正式接入账号系统后，将使用行级权限隔离数据，并提供导出和删除入口。</span></div>
+      <div className="privacy-note"><Icon name="shield" size={18} /><span>账号数据使用行级权限隔离：登录用户只能读取和修改自己的档案。退出后，本机资料仍可离线使用。</span></div>
     </>
+  )
+}
+
+interface AuthDialogProps {
+  initialMode: AuthMode
+  account: ReturnType<typeof useAccount>
+  onClose: () => void
+  onDone: (message: string) => void
+}
+
+function AuthDialog({ initialMode, account, onClose, onDone }: AuthDialogProps) {
+  const [mode, setMode] = useState<AuthMode>(initialMode)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [feedback, setFeedback] = useState('')
+
+  useEffect(() => {
+    document.body.classList.add('dialog-open')
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      document.body.classList.remove('dialog-open')
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [onClose])
+
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setFeedback('')
+    if (password.length < 8) {
+      setFeedback('密码至少需要 8 位')
+      return
+    }
+    if ((mode === 'signup' || mode === 'recovery') && password !== confirmPassword) {
+      setFeedback('两次输入的密码不一致')
+      return
+    }
+    setBusy(true)
+    const result = mode === 'signin'
+      ? await account.signIn(email, password)
+      : mode === 'signup'
+        ? await account.signUp(email, password)
+        : await account.updatePassword(password)
+    setBusy(false)
+    setFeedback(result.message)
+    if (result.ok && !result.needsEmailConfirmation) onDone(result.message)
+    if (result.needsEmailConfirmation) setMode('signin')
+  }
+
+  const resetPassword = async () => {
+    if (!email.trim()) {
+      setFeedback('先填写注册邮箱，再发送重置邮件')
+      return
+    }
+    setBusy(true)
+    const result = await account.sendPasswordReset(email)
+    setBusy(false)
+    setFeedback(result.message)
+  }
+
+  const title = mode === 'signin' ? '登录一推而就' : mode === 'signup' ? '创建云端账号' : '设置新密码'
+  const description = mode === 'signin'
+    ? '登录后自动合并本机与云端作战进度。'
+    : mode === 'signup'
+      ? '只需邮箱和密码；注册后按邮件提示确认邮箱。'
+      : '新密码设置完成后，所有已登录设备继续使用同一账号。'
+
+  return (
+    <div className="dialog-backdrop auth-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-dialog-title">
+        <div className="dialog-handle" />
+        <header>
+          <div className="auth-brand"><img src={brandIconUrl} alt="" /><span><small>云端档案</small><strong id="auth-dialog-title">{title}</strong></span></div>
+          <button className="icon-button" onClick={onClose} aria-label="关闭"><Icon name="close" size={20} /></button>
+        </header>
+        <p className="auth-description">{description}</p>
+        {mode !== 'recovery' && (
+          <div className="auth-tabs" role="tablist" aria-label="账号操作">
+            <button className={mode === 'signin' ? 'active' : ''} onClick={() => { setMode('signin'); setFeedback('') }}>登录</button>
+            <button className={mode === 'signup' ? 'active' : ''} onClick={() => { setMode('signup'); setFeedback('') }}>注册</button>
+          </div>
+        )}
+        <form className="auth-form" onSubmit={(event) => void submit(event)}>
+          {mode !== 'recovery' && <Field label="邮箱"><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" inputMode="email" placeholder="name@example.com" required /></Field>}
+          <Field label={mode === 'recovery' ? '新密码' : '密码'}><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === 'signin' ? 'current-password' : 'new-password'} placeholder="至少 8 位" minLength={8} required /></Field>
+          {(mode === 'signup' || mode === 'recovery') && <Field label="再次输入密码"><input type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} autoComplete="new-password" placeholder="再次输入" minLength={8} required /></Field>}
+          {feedback && <div className="auth-feedback" role="status">{feedback}</div>}
+          <button className="primary-button auth-submit" type="submit" disabled={busy}>{busy ? '正在处理…' : mode === 'signin' ? '登录并同步' : mode === 'signup' ? '创建账号' : '保存新密码'}</button>
+          {mode === 'signin' && <button className="auth-link" type="button" disabled={busy} onClick={() => void resetPassword()}>忘记密码？发送重置邮件</button>}
+        </form>
+        <div className="auth-privacy"><Icon name="shield" size={17} /><span>密码由账号服务加密处理；应用不会读取或保存明文密码。</span></div>
+      </section>
+    </div>
   )
 }
 

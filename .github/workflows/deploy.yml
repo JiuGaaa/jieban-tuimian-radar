@@ -35,6 +35,10 @@ jobs:
           PUBLIC_FEED_URL: https://jiugaaa.github.io/jieban-tuimian-radar/api/notices.json
       - name: Build public PWA
         run: npm run build:public
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+          VITE_AUTH_REDIRECT_URL: https://jiugaaa.github.io/jieban-tuimian-radar/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

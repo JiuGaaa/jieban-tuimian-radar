@@ -43,6 +43,23 @@ await page.evaluate(() => {
 })
 await new Promise((resolve) => setTimeout(resolve, 150))
 await page.screenshot({ path: 'qa-mobile-profile.png', fullPage: false })
+await page.waitForSelector('.account-card')
+const accountCard = await page.evaluate(() => ({
+  status: document.querySelector('.account-state')?.textContent || '',
+  loginEnabled: !(document.querySelector('.account-actions .primary-button'))?.disabled,
+  registerEnabled: !(document.querySelector('.account-actions .secondary-button'))?.disabled
+}))
+await page.click('.account-actions .secondary-button')
+await page.waitForSelector('.auth-dialog')
+await new Promise((resolve) => setTimeout(resolve, 260))
+await page.screenshot({ path: 'qa-mobile-auth.png', fullPage: false })
+const authDialog = await page.evaluate(() => ({
+  title: document.querySelector('#auth-dialog-title')?.textContent || '',
+  emailInput: Boolean(document.querySelector('.auth-dialog input[type="email"]')),
+  passwordInputs: document.querySelectorAll('.auth-dialog input[type="password"]').length
+}))
+await page.click('.auth-dialog .icon-button')
+await page.waitForSelector('.auth-dialog', { hidden: true })
 await page.$eval('.update-status', (element) => element.scrollIntoView({ block: 'center' }))
 await new Promise((resolve) => setTimeout(resolve, 100))
 await page.$eval('.device-card', async (element) => {
@@ -74,12 +91,17 @@ const claimFlow = await page.evaluate(() => ({
   tasksTabActive: document.querySelector('.bottom-nav button:nth-child(3)')?.classList.contains('active') ?? false
 }))
 
-console.log(JSON.stringify({ metrics, updateText, dialogMetrics, claimFlow, errors }, null, 2))
+console.log(JSON.stringify({ metrics, accountCard, authDialog, updateText, dialogMetrics, claimFlow, errors }, null, 2))
 await browser.close()
 
 if (
   metrics.documentWidth > metrics.viewportWidth ||
   metrics.bodyWidth > metrics.viewportWidth ||
+  !accountCard.loginEnabled ||
+  !accountCard.registerEnabled ||
+  !authDialog.title.includes('创建云端账号') ||
+  !authDialog.emailInput ||
+  authDialog.passwordInputs !== 2 ||
   !updateText.includes(`v${version.versionName}`) ||
   dialogMetrics.requirementCount === 0 ||
   dialogMetrics.materialCount === 0 ||

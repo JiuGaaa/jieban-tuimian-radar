@@ -1,15 +1,15 @@
 {
-  "versionCode": 2,
-  "versionName": "1.1.0",
+  "versionCode": 3,
+  "versionName": "1.2.0",
   "minimumSupportedVersionCode": 1,
-  "publishedAt": "2026-08-01T08:42:28.690Z",
+  "publishedAt": "2026-08-02T05:06:17.759Z",
   "releaseNotes": [
-    "应用正式更名为“一推而就”",
-    "采用“晨曦之路”全新应用图标与启动画面",
-    "政策按国家级、985、211及其他院校分层排序",
-    "继续每 30 分钟核验教育部、研招网和高校官网"
+    "新增邮箱账号注册、登录与找回密码",
+    "档案、收藏、揭榜记录和材料任务支持跨设备云同步",
+    "采用行级权限隔离，每位用户只能访问自己的数据",
+    "本机优先合并，未登录时仍可离线使用"
   ],
-  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.1.0/jieban-v1.1.0.apk",
-  "sha256": "d60ed1e5a97cd8901800c9eeb64451eaa2b0ba883f2d498cbaaad24febea0376",
-  "sizeBytes": 3435893
+  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.2.0/jieban-v1.2.0.apk",
+  "sha256": "7835fd13b0e7e3ef7d22ae8370cfbf81e1b811d307b41d124e2512715b638ce3",
+  "sizeBytes": 3493541
 }
