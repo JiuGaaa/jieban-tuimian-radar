@@ -1,24 +1,3 @@
-create table if not exists public.official_notice_feed (
-  id text primary key check (id = 'current'),
-  feed jsonb not null,
-  updated_at timestamptz not null default now()
-);
-
-alter table public.official_notice_feed enable row level security;
-
-revoke all on table public.official_notice_feed from anon, authenticated;
-grant select on table public.official_notice_feed to anon, authenticated;
-
-drop policy if exists "official notice feed is publicly readable" on public.official_notice_feed;
-create policy "official notice feed is publicly readable"
-on public.official_notice_feed
-for select
-to anon, authenticated
-using (id = 'current');
-
-create extension if not exists pg_cron with schema pg_catalog;
-create extension if not exists pg_net with schema extensions;
-
 do $$
 declare
   existing_job bigint;
