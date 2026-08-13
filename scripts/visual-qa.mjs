@@ -80,6 +80,41 @@ await page.evaluate(() => {
   navButtons[1]?.click()
 })
 await page.waitForSelector('.notice-main')
+
+const allResultCount = await page.$$eval('.notice-card', (elements) => elements.length)
+await page.$$eval('.chip-row button', (buttons) => {
+  const summerButton = [...buttons].find((button) => button.textContent === '夏令营')
+  summerButton?.click()
+})
+await page.waitForFunction(() => document.querySelector('.notice-stack')?.getAttribute('data-phase') === '夏令营')
+const summerFilter = await page.evaluate(() => ({
+  captionCount: Number(document.querySelector('.result-caption span')?.textContent?.match(/\d+/)?.[0] || 0),
+  cardCount: document.querySelectorAll('.notice-card').length,
+  phases: [...document.querySelectorAll('.notice-card')].map((card) => card.getAttribute('data-phase'))
+}))
+await page.type('.search-box input', '2027')
+await page.waitForFunction(() => document.querySelector('.notice-stack')?.getAttribute('data-query') === '2027')
+const combinedFilter = await page.evaluate(() => ({
+  captionCount: Number(document.querySelector('.result-caption span')?.textContent?.match(/\d+/)?.[0] || 0),
+  cardCount: document.querySelectorAll('.notice-card').length,
+  allMatch: [...document.querySelectorAll('.notice-card')].every((card) => (
+    card.getAttribute('data-phase') === '夏令营' && card.getAttribute('data-search-text')?.includes('2027')
+  ))
+}))
+await page.focus('.search-box input')
+await page.keyboard.down('Control')
+await page.keyboard.press('A')
+await page.keyboard.up('Control')
+await page.keyboard.press('Backspace')
+await page.$$eval('.chip-row button', (buttons) => {
+  const allButton = [...buttons].find((button) => button.textContent === '全部')
+  allButton?.click()
+})
+await page.waitForFunction(() => (
+  document.querySelector('.notice-stack')?.getAttribute('data-phase') === '全部' &&
+  document.querySelector('.notice-stack')?.getAttribute('data-query') === ''
+))
+const restoredResultCount = await page.$$eval('.notice-card', (elements) => elements.length)
 await page.evaluate(() => {
   const noticeButton = document.querySelector('.notice-main[data-has-materials="true"]')
   noticeButton?.click()
@@ -99,7 +134,8 @@ const claimFlow = await page.evaluate(() => ({
 }))
 
 const blockingErrors = errors.filter((error) => !/^HTTP 502 http:\/\/127\.0\.0\.1:\d+\/api\/version/.test(error))
-console.log(JSON.stringify({ metrics, monitoredUniversityCount, accountCard, authDialog, updateText, dialogMetrics, claimFlow, errors, blockingErrors }, null, 2))
+const filterQa = { allResultCount, summerFilter, combinedFilter, restoredResultCount }
+console.log(JSON.stringify({ metrics, monitoredUniversityCount, accountCard, authDialog, updateText, filterQa, dialogMetrics, claimFlow, errors, blockingErrors }, null, 2))
 await browser.close()
 
 if (
@@ -112,6 +148,12 @@ if (
   !authDialog.emailInput ||
   authDialog.passwordInputs !== 2 ||
   !updateText.includes(`v${version.versionName}`) ||
+  summerFilter.cardCount === 0 ||
+  summerFilter.captionCount !== summerFilter.cardCount ||
+  summerFilter.phases.some((item) => item !== '夏令营') ||
+  combinedFilter.captionCount !== combinedFilter.cardCount ||
+  !combinedFilter.allMatch ||
+  restoredResultCount !== allResultCount ||
   dialogMetrics.requirementCount === 0 ||
   dialogMetrics.materialCount === 0 ||
   claimFlow.taskCount < 8 ||

@@ -9,7 +9,8 @@ import { useNoticeFeed } from './hooks/useNoticeFeed'
 import { usePersistentState } from './hooks/usePersistentState'
 import { formatDate, relativeDeadline } from './lib/date'
 import { calculateJmuSampleMatch } from './lib/matcher'
-import { compareNoticePriority, getUniversityTier } from './lib/universityPriority'
+import { filterNotices, noticeResultKey, noticeSearchText, type NoticePhaseFilter } from './lib/noticeFilter'
+import { getUniversityTier } from './lib/universityPriority'
 import {
   getNotificationState,
   notifyNewNotices,
@@ -40,7 +41,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<TabId>('home')
   const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null)
   const [search, setSearch] = useState('')
-  const [phase, setPhase] = useState<'全部' | NoticePhase>('全部')
+  const [phase, setPhase] = useState<NoticePhaseFilter>('全部')
   const [toast, setToast] = useState('')
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [notificationState, setNotificationState] = useState<NotificationState>('prompt')
@@ -78,14 +79,7 @@ function App() {
   const completedTasks = tasks.filter((task) => task.completed).length
   const taskProgress = tasks.length ? Math.round((completedTasks / tasks.length) * 100) : 0
 
-  const filteredNotices = useMemo(() => {
-    const query = search.trim().toLowerCase()
-    return notices.filter((notice) => {
-      const matchesPhase = phase === '全部' || notice.phase === phase
-      const haystack = [notice.university, notice.institute, notice.title, notice.summary, ...notice.tags].join(' ').toLowerCase()
-      return matchesPhase && (!query || haystack.includes(query))
-    }).sort(compareNoticePriority)
-  }, [notices, phase, search])
+  const filteredNotices = useMemo(() => filterNotices(notices, phase, search), [notices, phase, search])
 
   useEffect(() => {
     void getNotificationState().then(setNotificationState)
@@ -437,11 +431,11 @@ interface NoticesPageProps {
   syncState: SyncState
   syncMessage: string
   search: string
-  phase: '全部' | NoticePhase
+  phase: NoticePhaseFilter
   savedNoticeIds: string[]
   claimedNoticeIds: string[]
   onSearch: (value: string) => void
-  onPhase: (phase: '全部' | NoticePhase) => void
+  onPhase: (phase: NoticePhaseFilter) => void
   onOpenNotice: (notice: Notice) => void
   onToggleSaved: (id: string) => void
   onClaim: (notice: Notice) => void
@@ -486,12 +480,17 @@ function NoticesPage({
 
       <div className="chip-row" aria-label="政策类型筛选">
         {phases.map((item) => (
-          <button key={item} className={phase === item ? 'active' : ''} onClick={() => onPhase(item)}>{item}</button>
+          <button type="button" key={item} className={phase === item ? 'active' : ''} aria-pressed={phase === item} onClick={() => onPhase(item)}>{item}</button>
         ))}
       </div>
 
-      <div className="result-caption"><span>{visibleNotices.length} 条结果</span><span>国家级 · 985 · 211 · 其他</span></div>
-      <div className="notice-stack">
+      <div className="result-caption" aria-live="polite"><span>{visibleNotices.length} 条结果</span><span>国家级 · 985 · 211 · 其他</span></div>
+      <div
+        key={noticeResultKey(visibleNotices, phase, search)}
+        className="notice-stack"
+        data-phase={phase}
+        data-query={search}
+      >
         {visibleNotices.length ? visibleNotices.map((notice) => (
           <NoticeCard
             key={notice.id}
@@ -524,7 +523,7 @@ function NoticeCard({ notice, saved, claimed, onOpen, onToggleSaved, onClaim }: 
   const universityTier = getUniversityTier(notice.university)
   const tierClass = universityTier === '国家级' ? 'national' : universityTier
   return (
-    <article className="notice-card">
+    <article className="notice-card" data-phase={notice.phase} data-search-text={noticeSearchText(notice)}>
       <div className="notice-topline">
         <div className="source-level">
           <span>{notice.officialLevel}</span>

@@ -1,15 +1,15 @@
 {
-  "versionCode": 4,
-  "versionName": "1.3.0",
+  "versionCode": 5,
+  "versionName": "1.3.1",
   "minimumSupportedVersionCode": 1,
-  "publishedAt": "2026-08-13T07:59:45.435Z",
+  "publishedAt": "2026-08-13T08:33:34.862Z",
   "releaseNotes": [
-    "动态监测入口由 5 个扩展到 65 个，覆盖全部 985 与首批重点 211",
-    "新增研招网全国聚合、院校官网和历史缓存三层发现机制",
-    "Supabase 云端每 20 分钟自动扫描，App 无需重新发布即可获得新通知",
-    "官网临时不可访问时启用只读代理与官方目录收录兜底"
+    "修复政策阶段切换后卡片列表未可靠刷新的问题",
+    "修复搜索结果数量变化但部分安卓设备仍显示旧卡片的问题",
+    "搜索与阶段筛选现在支持组合使用，并保证计数与实际卡片一致",
+    "优化全角字符、英文大小写和多余空格的搜索匹配"
   ],
-  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.0/jieban-v1.3.0.apk",
-  "sha256": "24b82f92c2b564df03dac1e56aec805ec18da68fa54c8141eb4048d20f0c46dd",
-  "sizeBytes": 3502253
+  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.1/jieban-v1.3.1.apk",
+  "sha256": "7985d442c7d2ad22505c09061aa6d702d523ad68c71d5782576352fc20a9d131",
+  "sizeBytes": 3502445
 }
