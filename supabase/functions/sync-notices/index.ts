@@ -62,7 +62,10 @@ const FALLBACK_SOURCES: Source[] = [
 const KEYWORDS = /推免|推荐免试|免试攻读|优秀大学生(?:暑期|夏令营)?|大学生暑期夏令营|预报名|预推免|直博|体验营|研修营|研究生(?:招生)?开放日|学术开放日/
 const EXCLUDE_KEYWORDS = /拟录取.*公示|录取名单公示|调档政审|组织关系转接|寄送体检单|本校硕博连读|转博生工作|研究生.*暑期学校/
 const SECTION_KEYWORDS = /^(?:硕士招生|博士招生|研究生招生|招生信息|招生动态|招生公告|通知公告|招生简章|推免招生|夏令营|预推免|招生工作)$/
-const FETCH_TIMEOUT_MS = 14_000
+const FETCH_TIMEOUT_MS = 6_500
+const DIRECT_BATCH_SIZE = 10
+const SYNC_FREQUENCY_MS = 3 * 60_000
+const MIN_SYNC_GAP_MS = 2 * 60_000
 
 function normalizeText(value = '') {
   return value.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
@@ -74,7 +77,7 @@ function normalizeSource(source: Source): Required<Pick<Source, 'id' | 'name' | 
     institute: '研究生院',
     officialLevel: 'B',
     maxItems: source.aggregator ? 100 : 4,
-    maxSections: source.baseDomain ? 3 : 0,
+    maxSections: source.baseDomain ? 1 : 0,
     aggregator: false,
     inferUniversity: false,
     ...source,
@@ -127,7 +130,7 @@ async function fetchDocument(url: string): Promise<Document> {
     return await fetchDirect(url)
   } catch (directError) {
     const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS + 6_000)
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS + 3_000)
     try {
       const response = await fetch(`https://r.jina.ai/${url}`, { signal: controller.signal, headers: { accept: 'text/plain' } })
       if (!response.ok) throw directError
@@ -301,7 +304,7 @@ Deno.serve(async (request) => {
   const supabase = createClient(supabaseUrl, serviceRoleKey)
   const { data: existingRow } = await supabase.from('official_notice_feed').select('feed, updated_at').eq('id', 'current').maybeSingle()
   const force = request.headers.get('x-force-sync') === '1'
-  if (!force && existingRow?.updated_at && Date.now() - new Date(existingRow.updated_at).getTime() < 5 * 60_000) {
+  if (!force && existingRow?.updated_at && Date.now() - new Date(existingRow.updated_at).getTime() < MIN_SYNC_GAP_MS) {
     return Response.json({ ok: true, skipped: true, updatedAt: existingRow.updated_at })
   }
 
@@ -316,8 +319,17 @@ Deno.serve(async (request) => {
   } catch {
     // The two official CHSI fallbacks still keep the feed updating.
   }
+  const aggregators = sources.filter((source) => source.aggregator)
+  const directSources = sources.filter((source) => !source.aggregator)
+  const storedCursor = Number(existingRow?.feed?.meta?.nextSourceCursor || 0)
+  const cursor = directSources.length ? Math.max(0, storedCursor) % directSources.length : 0
+  const directBatch = directSources.length <= DIRECT_BATCH_SIZE
+    ? directSources
+    : Array.from({ length: DIRECT_BATCH_SIZE }, (_, index) => directSources[(cursor + index) % directSources.length])
+  const batchSources = [...aggregators, ...directBatch]
+  const nextSourceCursor = directSources.length ? (cursor + directBatch.length) % directSources.length : 0
   const knownNames = [...new Set([...priority['985'], ...priority['211Non985'], ...Object.keys(priority.aliases)])].sort((a, b) => b.length - a.length)
-  const crawlResults = await mapConcurrent(sources, 7, (source) => crawlSource(source, checkedAt, knownNames, priority.aliases))
+  const crawlResults = await mapConcurrent(batchSources, 6, (source) => crawlSource(source, checkedAt, knownNames, priority.aliases))
   const discovered = crawlResults.flatMap((result) => result.status === 'fulfilled' ? result.value.notices : [])
   const merged = new Map<string, Record<string, unknown>>()
   for (const notice of existingRow?.feed?.notices || []) {
@@ -329,33 +341,67 @@ Deno.serve(async (request) => {
     merged.set(noticeIdentity(notice), notice)
   }
   for (const notice of discovered) merged.set(noticeIdentity(notice), notice)
-  const statuses = crawlResults.map((result, index) => ({
-    id: sources[index].id,
-    name: sources[index].name,
-    url: sources[index].indexUrl,
+  const batchStatuses = crawlResults.map((result, index) => ({
+    id: batchSources[index].id,
+    name: batchSources[index].name,
+    url: batchSources[index].indexUrl,
     ok: result.status === 'fulfilled',
     checkedAt,
     itemCount: result.status === 'fulfilled' ? result.value.notices.length : 0,
     ...(result.status === 'fulfilled' ? { transport: result.value.transport } : { error: String(result.reason) })
   }))
+  const statusById = new Map<string, Record<string, unknown>>(
+    (existingRow?.feed?.meta?.sources || []).map((source: Record<string, unknown>) => [String(source.id), source])
+  )
+  for (const source of sources) {
+    if (!statusById.has(source.id)) {
+      statusById.set(source.id, {
+        id: source.id,
+        name: source.name,
+        url: source.indexUrl,
+        ok: false,
+        checkedAt: null,
+        itemCount: 0,
+        error: '等待首次轮询'
+      })
+    }
+  }
+  for (const status of batchStatuses) statusById.set(status.id, status)
+  const statuses = sources.map((source) => statusById.get(source.id)!)
   const notices = [...merged.values()].sort((a, b) => new Date(String(b.publishedAt)).getTime() - new Date(String(a.publishedAt)).getTime())
   const successfulSourceCount = statuses.filter((source) => source.ok).length
+  const failedSourceCount = statuses.filter((source) => source.checkedAt && !source.ok).length
+  const pendingSourceCount = statuses.filter((source) => !source.checkedAt).length
+  const successfulBatchCount = batchStatuses.filter((source) => source.ok).length
+  const completedCycle = directSources.length <= DIRECT_BATCH_SIZE || nextSourceCursor <= cursor
   const feed = {
     notices,
     meta: {
       lastSyncedAt: checkedAt,
-      nextSyncAt: new Date(Date.now() + 20 * 60_000).toISOString(),
+      nextSyncAt: new Date(Date.now() + SYNC_FREQUENCY_MS).toISOString(),
       sourceCount: statuses.length,
       successfulSourceCount,
-      failedSourceCount: statuses.length - successfulSourceCount,
+      failedSourceCount,
+      pendingSourceCount,
       monitoredUniversityCount: new Set(sources.filter((source) => !source.aggregator).map((source) => source.university)).size,
       discoveredUniversityCount: new Set(notices.map((notice) => notice.university)).size,
       durationMs: Date.now() - startedAt,
-      mode: successfulSourceCount ? 'live' : 'cached',
+      mode: successfulBatchCount ? 'live' : 'cached',
+      batchSize: batchSources.length,
+      directBatchSize: directBatch.length,
+      nextSourceCursor,
+      lastFullCycleAt: completedCycle ? checkedAt : existingRow?.feed?.meta?.lastFullCycleAt,
       sources: statuses
     }
   }
   const { error } = await supabase.from('official_notice_feed').upsert({ id: 'current', feed, updated_at: checkedAt })
   if (error) return Response.json({ error: error.message }, { status: 500 })
-  return Response.json({ ok: true, noticeCount: notices.length, successfulSources: `${successfulSourceCount}/${statuses.length}`, updatedAt: checkedAt })
+  return Response.json({
+    ok: true,
+    noticeCount: notices.length,
+    successfulBatchSources: `${successfulBatchCount}/${batchSources.length}`,
+    trackedSources: `${successfulSourceCount}/${statuses.length}`,
+    nextSourceCursor,
+    updatedAt: checkedAt
+  })
 })
