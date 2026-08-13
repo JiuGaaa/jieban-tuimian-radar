@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { canonicalizeUrl, extractCandidates, inferTargetYear } from './sync.mjs'
+import { canonicalizeUrl, extractCandidates, inferTargetYear, inferUniversity } from './sync.mjs'
 
 const source = {
   id: 'test-university',
@@ -15,8 +15,27 @@ describe('official source crawler', () => {
       <a href="https://example.com/fake.htm">2028年推免通知</a>
     `
     expect(extractCandidates(html, source, 'https://yz.example.edu.cn/list.htm')).toEqual([
-      { title: '2028年接收推荐免试研究生通知', url: 'https://yz.example.edu.cn/2026/0801/policy/page.htm' }
+      {
+        title: '2028年接收推荐免试研究生通知',
+        url: 'https://yz.example.edu.cn/2026/0801/policy/page.htm',
+        indexedByUrl: 'https://yz.example.edu.cn/list.htm',
+        publishedAt: '2026-08-01T00:00:00+08:00'
+      }
     ])
+  })
+
+  it('extracts dates beside links and includes experience camps', () => {
+    const html = `
+      <ul><li><a href="/camp/2027.htm">华南理工大学2027MBA青年领袖体验营</a><span>2026-08-07</span></li></ul>
+    `
+    expect(extractCandidates(html, {
+      id: 'aggregator',
+      allowedHosts: ['yz.chsi.com.cn'],
+      maxItems: 10
+    }, 'https://yz.chsi.com.cn/kyzx/yxzc/')[0]).toMatchObject({
+      title: '华南理工大学2027MBA青年领袖体验营',
+      publishedAt: '2026-08-07T00:00:00+08:00'
+    })
   })
 
   it('normalizes mobile article URLs before deduplication', () => {
@@ -26,7 +45,15 @@ describe('official source crawler', () => {
 
   it('never rewrites a 2027 notice as a 2028 notice', () => {
     expect(inferTargetYear('面向2027届优秀本科毕业生')).toBe('2027')
+    expect(inferTargetYear('招收2027级推荐免试研究生')).toBe('2027')
+    expect(inferTargetYear('华南理工大学2027MBA青年领袖体验营')).toBe('2027')
     expect(inferTargetYear('2028年接收推荐免试研究生')).toBe('2028')
     expect(inferTargetYear('当年度安排以正式通知为准')).toBe('长期有效')
+  })
+
+  it('infers and canonicalizes universities from aggregator titles', () => {
+    expect(inferUniversity('清华大学经管学院2027年硕士推免最新通知', '研招网')).toBe('清华大学')
+    expect(inferUniversity('国防科技大学2027年接收推免生通知', '研招网')).toBe('国防科学技术大学')
+    expect(inferUniversity('某某研究院2027年推免通知', '研招网')).toBe('某某研究院')
   })
 })

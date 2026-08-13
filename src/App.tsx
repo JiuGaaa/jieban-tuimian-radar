@@ -231,6 +231,7 @@ function App() {
             onClaim={claimNotice}
             onNavigate={navigate}
             syncState={syncState}
+            meta={meta}
           />
         )}
 
@@ -338,6 +339,7 @@ interface HomePageProps {
   onClaim: (notice: Notice) => void
   onNavigate: (tab: TabId) => void
   syncState: SyncState
+  meta: FeedMeta
 }
 
 function HomePage({
@@ -350,7 +352,8 @@ function HomePage({
   onToggleSaved,
   onClaim,
   onNavigate,
-  syncState
+  syncState,
+  meta
 }: HomePageProps) {
   const profileReady = Boolean(profile.school && profile.major && profile.rank && profile.cohortSize)
   const openTasks = tasks.filter((task) => !task.completed)
@@ -383,7 +386,7 @@ function HomePage({
       </section>
 
       <section className="metric-strip" aria-label="准备状态">
-        <div><strong>{new Set(notices.map((item) => item.sourceDomain)).size}</strong><span>官方来源</span></div>
+        <div><strong>{meta.monitoredUniversityCount || new Set(notices.map((item) => item.university)).size}</strong><span>监测院校</span></div>
         <div><strong>{notices.filter((item) => item.targetYear === '2028').length}</strong><span>28届已发布</span></div>
         <div><strong>{openTasks.length}</strong><span>待完成任务</span></div>
       </section>
@@ -471,7 +474,7 @@ function NoticesPage({
 
       <div className={`status-alert verified-alert ${syncState}`}>
         <Icon name="shield" size={18} />
-        <span>只展示官方可追溯内容。28届正式简章尚未发布；当前2027届信息仅供提前准备参考。{meta.lastSyncedAt ? ` 最近同步：${formatSyncTime(meta.lastSyncedAt)}。` : ''}</span>
+        <span>只展示官网或研招网可追溯内容；当前监测 {meta.monitoredUniversityCount || 0} 所院校，约每 20 分钟扫描一次。28届正式简章尚未发布，2027届信息用于提前准备参考。{meta.lastSyncedAt ? ` 最近同步：${formatSyncTime(meta.lastSyncedAt)}。` : ''}</span>
         <button onClick={() => void onRefresh()} disabled={syncState === 'syncing'}>{syncState === 'syncing' ? '同步中' : '立即同步'}</button>
       </div>
       {syncState !== 'online' && <p className="sync-warning">{syncMessage}</p>}
@@ -915,7 +918,7 @@ function NoticeDialog({ notice, saved, claimed, onClose, onToggleSaved, onClaim 
         </div>
         <div className="dialog-section"><h3>要求速览</h3><div className="requirement-list">{notice.requirements.map((item) => <div key={item.label}><span>{item.label}</span><strong className={item.tone}>{item.value}</strong></div>)}</div></div>
         <div className="dialog-section"><h3>材料清单</h3>{notice.materials.length ? <ul className="material-list">{notice.materials.map((item) => <li key={item}><span /><p>{item}</p></li>)}</ul> : <p className="quiet-copy">官方页面未明确列出材料清单，请直接查看原文，不作推测补全。</p>}</div>
-        <div className="source-proof"><Icon name="shield" size={19} /><div><span>官方来源 · {notice.sourceDomain}</span><strong>{notice.sourceName}</strong></div>{notice.sourceUrl && <a href={notice.sourceUrl} target="_blank" rel="noreferrer">打开官网 <Icon name="external" size={15} /></a>}</div>
+        <div className="source-proof"><Icon name="shield" size={19} /><div><span>{notice.verificationStatus === 'official-indexed' ? '官方目录已收录' : '官方原文已核验'} · {notice.sourceDomain}</span><strong>{notice.sourceName}</strong></div>{notice.sourceUrl && <a href={notice.sourceUrl} target="_blank" rel="noreferrer">打开官网 <Icon name="external" size={15} /></a>}</div>
         <footer><button className="secondary-button" onClick={onClose}>稍后处理</button><button className={claimed ? 'primary-button claimed' : 'primary-button'} onClick={onClaim}>{claimed ? '已揭榜 · 查看作战台' : '立即揭榜'}</button></footer>
       </section>
     </div>

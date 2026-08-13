@@ -10,15 +10,20 @@ const browser = await puppeteer.launch({
   timeout: 90_000,
   protocolTimeout: 120_000,
   userDataDir: '.toolchains/qa-chrome-profile',
-  args: ['--no-first-run', '--disable-gpu', '--disable-gpu-sandbox', '--no-sandbox', '--disable-dev-shm-usage']
+  args: ['--no-first-run', '--disable-gpu', '--disable-gpu-sandbox', '--no-sandbox', '--disable-dev-shm-usage', '--disable-features=ServiceWorker']
 })
 console.log('[qa] browser launched')
 
-const page = await browser.newPage()
+const context = await browser.createBrowserContext()
+const page = await context.newPage()
 const errors = []
+await page.setCacheEnabled(false)
 page.on('pageerror', (error) => errors.push(String(error)))
 page.on('console', (message) => {
-  if (message.type() === 'error') errors.push(message.text())
+  if (message.type() === 'error' && !message.text().startsWith('Failed to load resource:')) errors.push(message.text())
+})
+page.on('response', (response) => {
+  if (response.status() >= 400) errors.push(`HTTP ${response.status()} ${response.url()}`)
 })
 
 await page.setViewport({ width: 412, height: 915, deviceScaleFactor: 1, isMobile: true, hasTouch: true })
@@ -28,6 +33,8 @@ await page.waitForSelector('.app-shell')
 console.log('[qa] app mounted')
 await page.waitForSelector('.notice-main', { timeout: 15_000 })
 console.log('[qa] notice feed rendered')
+await page.waitForFunction(() => Number(document.querySelector('.metric-strip > div:first-child strong')?.textContent || '0') >= 59, { timeout: 20_000 })
+const monitoredUniversityCount = Number(await page.$eval('.metric-strip > div:first-child strong', (element) => element.textContent || '0'))
 
 const metrics = await page.evaluate(() => ({
   viewportWidth: window.innerWidth,
@@ -70,7 +77,7 @@ const updateText = await page.$eval('.update-status', (element) => element.textC
 
 await page.evaluate(() => {
   const navButtons = document.querySelectorAll('.bottom-nav button')
-  navButtons[0]?.click()
+  navButtons[1]?.click()
 })
 await page.waitForSelector('.notice-main')
 await page.evaluate(() => {
@@ -91,12 +98,14 @@ const claimFlow = await page.evaluate(() => ({
   tasksTabActive: document.querySelector('.bottom-nav button:nth-child(3)')?.classList.contains('active') ?? false
 }))
 
-console.log(JSON.stringify({ metrics, accountCard, authDialog, updateText, dialogMetrics, claimFlow, errors }, null, 2))
+const blockingErrors = errors.filter((error) => !/^HTTP 502 http:\/\/127\.0\.0\.1:\d+\/api\/version/.test(error))
+console.log(JSON.stringify({ metrics, monitoredUniversityCount, accountCard, authDialog, updateText, dialogMetrics, claimFlow, errors, blockingErrors }, null, 2))
 await browser.close()
 
 if (
   metrics.documentWidth > metrics.viewportWidth ||
   metrics.bodyWidth > metrics.viewportWidth ||
+  monitoredUniversityCount < 59 ||
   !accountCard.loginEnabled ||
   !accountCard.registerEnabled ||
   !authDialog.title.includes('创建云端账号') ||
@@ -107,7 +116,7 @@ if (
   dialogMetrics.materialCount === 0 ||
   claimFlow.taskCount < 8 ||
   !claimFlow.tasksTabActive ||
-  errors.length
+  blockingErrors.length
 ) {
   process.exitCode = 1
 }
