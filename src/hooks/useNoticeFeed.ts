@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { verifiedSeedNotices } from '../data/notices'
 import { buildApiUrl } from '../lib/api'
+import { supabase } from '../lib/supabase'
 import type { FeedMeta, Notice, NoticeFeed, SyncState } from '../types'
 
 const CACHE_KEY = 'jieban:official-feed:v1'
@@ -29,7 +30,7 @@ function validateFeed(value: unknown): NoticeFeed | null {
   const candidate = value as Partial<NoticeFeed>
   if (!Array.isArray(candidate.notices) || !candidate.meta) return null
   const notices = candidate.notices.filter((notice): notice is Notice => {
-    if (!notice || notice.verificationStatus !== 'official-online' || !notice.sourceUrl || !notice.sourceDomain) return false
+    if (!notice || !['official-online', 'official-indexed'].includes(notice.verificationStatus) || !notice.sourceUrl || !notice.sourceDomain) return false
     try {
       return new URL(notice.sourceUrl).hostname === notice.sourceDomain
     } catch {
@@ -48,14 +49,28 @@ export function useNoticeFeed() {
 
   const refresh = useCallback(async (manual = false) => {
     const target = buildApiUrl('notices', manual)
-    if (!target) {
-      setSyncState(initialFeed ? 'cached' : 'error')
-      setSyncMessage('原生版尚未配置远程同步地址')
-      return null
-    }
     setSyncState('syncing')
     setSyncMessage(manual ? '正在重新核验官方来源' : '正在同步官方来源')
     try {
+      if (supabase) {
+        const { data, error } = await supabase
+          .from('official_notice_feed')
+          .select('feed')
+          .eq('id', 'current')
+          .maybeSingle<{ feed: unknown }>()
+        if (!error && data?.feed) {
+          const cloudFeed = validateFeed(data.feed)
+          if (cloudFeed) {
+            setNotices(cloudFeed.notices)
+            setMeta(cloudFeed.meta)
+            setSyncState('online')
+            setSyncMessage(`云端实时源已核验 ${cloudFeed.meta.successfulSourceCount}/${cloudFeed.meta.sourceCount} 个入口`)
+            localStorage.setItem(CACHE_KEY, JSON.stringify(cloudFeed))
+            return cloudFeed
+          }
+        }
+      }
+      if (!target) throw new Error('原生版尚未配置远程同步地址')
       const response = await fetch(target, { cache: 'no-store' })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       const next = validateFeed(await response.json())

@@ -27,9 +27,10 @@ export interface Notice {
   deadline?: string
   targetYear: '2027' | '2028' | '长期有效'
   officialLevel: 'A' | 'B' | '本地样本'
-  verificationStatus: 'official-online' | 'official-local'
+  verificationStatus: 'official-online' | 'official-indexed' | 'official-local'
   sourceDomain: string
-  discoveredBy: 'manual-verification' | 'official-index'
+  discoveredBy: 'manual-verification' | 'official-index' | 'official-aggregator'
+  indexedByUrl?: string
   tags: string[]
   requirements: RequirementLine[]
   materials: string[]
@@ -43,6 +44,7 @@ export interface SourceSyncStatus {
   ok: boolean
   checkedAt: string
   itemCount: number
+  transport?: 'direct' | 'reader' | 'mixed'
   error?: string
 }
 
@@ -51,6 +53,10 @@ export interface FeedMeta {
   nextSyncAt: string | null
   sourceCount: number
   successfulSourceCount: number
+  failedSourceCount?: number
+  monitoredUniversityCount?: number
+  discoveredUniversityCount?: number
+  durationMs?: number
   mode: 'live' | 'seed' | 'cached'
   sources: SourceSyncStatus[]
 }

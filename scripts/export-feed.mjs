@@ -5,9 +5,13 @@ import { canonicalizeUrl, compareNoticesByPriority, refreshFeed } from '../serve
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const apiDir = path.join(rootDir, 'public', 'api')
+const EXCLUDE_KEYWORDS = /拟录取.*公示|录取名单公示|调档政审|组织关系转接|寄送体检单|本校硕博连读|转博生工作|研究生.*暑期学校/
 
 function isVerifiedNotice(notice) {
-  if (!notice || notice.verificationStatus !== 'official-online' || !notice.sourceUrl || !notice.sourceDomain) return false
+  if (!notice || !['official-online', 'official-indexed'].includes(notice.verificationStatus) || !notice.sourceUrl || !notice.sourceDomain) return false
+  if (EXCLUDE_KEYWORDS.test(String(notice.title || ''))) return false
+  const publishedAt = new Date(String(notice.publishedAt || 0)).getTime()
+  if (notice.targetYear === '长期有效' && (!Number.isFinite(publishedAt) || Date.now() - publishedAt > 540 * 24 * 60 * 60_000)) return false
   try {
     return new URL(notice.sourceUrl).hostname === notice.sourceDomain
   } catch {

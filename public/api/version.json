@@ -1,15 +1,15 @@
 {
-  "versionCode": 3,
-  "versionName": "1.2.0",
+  "versionCode": 4,
+  "versionName": "1.3.0",
   "minimumSupportedVersionCode": 1,
-  "publishedAt": "2026-08-02T05:06:17.759Z",
+  "publishedAt": "2026-08-13T07:59:45.435Z",
   "releaseNotes": [
-    "新增邮箱账号注册、登录与找回密码",
-    "档案、收藏、揭榜记录和材料任务支持跨设备云同步",
-    "采用行级权限隔离，每位用户只能访问自己的数据",
-    "本机优先合并，未登录时仍可离线使用"
+    "动态监测入口由 5 个扩展到 65 个，覆盖全部 985 与首批重点 211",
+    "新增研招网全国聚合、院校官网和历史缓存三层发现机制",
+    "Supabase 云端每 20 分钟自动扫描，App 无需重新发布即可获得新通知",
+    "官网临时不可访问时启用只读代理与官方目录收录兜底"
   ],
-  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.2.0/jieban-v1.2.0.apk",
-  "sha256": "7835fd13b0e7e3ef7d22ae8370cfbf81e1b811d307b41d124e2512715b638ce3",
-  "sizeBytes": 3493541
+  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.0/jieban-v1.3.0.apk",
+  "sha256": "24b82f92c2b564df03dac1e56aec805ec18da68fa54c8141eb4048d20f0c46dd",
+  "sizeBytes": 3502253
 }

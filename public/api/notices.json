@@ -1,52 +1,742 @@
 {
   "notices": [
     {
-      "id": "muc-2027-preapply",
+      "id": "moe-2026-policy",
+      "university": "教育部",
+      "institute": "高校学生司",
+      "title": "2026年全国硕士研究生招生工作管理规定",
+      "summary": "教育部现行全国硕士研究生招生管理规定，明确推荐免试应面向优秀应届本科毕业生开展选拔，招生单位须公开招生章程与录取规则。",
+      "phase": "国家政策",
+      "status": "reference",
+      "sourceName": "中华人民共和国教育部",
+      "sourceUrl": "https://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html",
+      "publishedAt": "2025-09-18T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
+      "officialLevel": "A",
+      "verificationStatus": "official-online",
+      "sourceDomain": "www.moe.gov.cn",
+      "discoveredBy": "manual-verification",
+      "tags": [
+        "国家政策",
+        "推荐免试",
+        "信息公开"
+      ],
+      "requirements": [
+        {
+          "label": "选拔对象",
+          "value": "优秀应届本科毕业生"
+        },
+        {
+          "label": "最终依据",
+          "value": "当年度教育部及招生单位正式文件",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "chsi-tuimian-system",
+      "university": "研招网",
+      "institute": "全国推免服务系统",
+      "title": "全国推荐免试攻读研究生信息公开管理服务系统",
+      "summary": "教育部统一的推免资格备案、志愿填报、复试通知和待录取确认平台。页面当前展示的是2026招生年度安排，2028届时间尚未发布。",
+      "phase": "系统提醒",
+      "status": "reference",
+      "sourceName": "中国研究生招生信息网",
+      "sourceUrl": "https://yz.chsi.com.cn/tm/",
+      "publishedAt": "2025-09-18T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
+      "officialLevel": "A",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.chsi.com.cn",
+      "discoveredBy": "manual-verification",
+      "tags": [
+        "研招网",
+        "志愿填报",
+        "录取确认"
+      ],
+      "requirements": [
+        {
+          "label": "唯一平台",
+          "value": "推免资格备案及网上报考录取均通过该系统"
+        },
+        {
+          "label": "2028届时间",
+          "value": "尚未发布",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-bc977e3d52cd0c61",
+      "university": "清华大学",
+      "institute": "研究生院",
+      "title": "清华大学2027年博士研究生招生专业目录_推荐免试",
+      "summary": "清华大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "new",
+      "sourceName": "清华大学研究生招生网",
+      "sourceUrl": "https://yzbm.tsinghua.edu.cn/publish/s01/s0103/detail/2ede1fca-d9a0-407a-9d68-3475494848b7/2",
+      "publishedAt": "2026-08-13T07:57:12.327Z",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzbm.tsinghua.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tsinghua.edu.cn/zsxx/bszs/jzml.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzbm.tsinghua.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为清华大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-094827bf2fd08124",
+      "university": "清华大学",
+      "institute": "研究生院",
+      "title": "032026.07 清华大学2027年接收推荐免试研究生办法",
+      "summary": "清华大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "new",
+      "sourceName": "清华大学研究生招生网",
+      "sourceUrl": "https://yz.tsinghua.edu.cn/info/1024/3251.htm",
+      "publishedAt": "2026-08-13T07:57:11.733Z",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.tsinghua.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tsinghua.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yz.tsinghua.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为清华大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-a11326704fe65930",
       "university": "中央民族大学",
       "institute": "研究生院",
-      "title": "中央民族大学关于2027年接收推荐免试研究生（含直博生）预报名的通知",
-      "summary": "学校于2026年8月1日开放推免预报名，各学院的具体报名与线下考核安排以学院后续官方通知为准。",
+      "title": "2026-08-072027年中央民族大学各学院接收推荐免试研究生（含直博生）预报名通知合集",
+      "summary": "https://phil.muc.edu.cn/info/1103/9151.htm",
       "phase": "预推免",
       "status": "new",
       "sourceName": "中央民族大学研究生招生网",
-      "sourceUrl": "https://grs.muc.edu.cn/yjsyzsw/info/1063/5989.htm",
-      "publishedAt": "2026-07-22T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
+      "sourceUrl": "https://grs.muc.edu.cn/yjsyzsw/info/1063/6039.htm",
+      "publishedAt": "2026-08-07T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
       "targetYear": "2027",
       "officialLevel": "B",
       "verificationStatus": "official-online",
       "sourceDomain": "grs.muc.edu.cn",
-      "discoveredBy": "manual-verification",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://grs.muc.edu.cn/yjsyzsw/sszs.htm",
       "tags": [
-        "2027推免",
-        "预报名",
-        "直博",
-        "线下考核"
+        "官网自动发现",
+        "预推免",
+        "grs.muc.edu.cn"
       ],
       "requirements": [
         {
-          "label": "学生身份",
-          "value": "优秀应届本科毕业生"
+          "label": "来源核验",
+          "value": "已核验为中央民族大学官方域名"
         },
         {
-          "label": "推免资格",
-          "value": "有望获得所在高校推免资格"
-        },
-        {
-          "label": "考核形式",
-          "value": "各专业均实行线下考核"
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
         }
       ],
-      "materials": [
-        "身份证正反面扫描件",
-        "教育部学籍在线验证报告",
-        "学校推免申请表并盖章",
-        "本科前五学期成绩单并盖章",
-        "外语水平证明",
-        "科研成果及获奖证明",
-        "直博生两封正高职称专家推荐信"
-      ],
+      "materials": [],
       "isPriority": true
+    },
+    {
+      "id": "live-6de5513fb4325166",
+      "university": "南京大学",
+      "institute": "研究生院",
+      "title": "南京大学2027年接收推荐免试研究生预报名截止时间汇总",
+      "summary": "南京大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "new",
+      "sourceName": "南京大学研究生招生网",
+      "sourceUrl": "https://yzb.nju.edu.cn/d5/21/c47863a840993/page.htm",
+      "publishedAt": "2026-08-07T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.nju.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.nju.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yzb.nju.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-750a2dc6ebbca940",
+      "university": "浙江大学",
+      "institute": "集成电路学院",
+      "title": "浙江大学集成电路学院关于接收2027级推荐免试研究生工作安排的通知",
+      "summary": "浙江大学集成电路学院竭诚欢迎全国高校（含本校）优秀本科毕业生推荐免试来我院攻读研究生。",
+      "phase": "本校推免",
+      "status": "new",
+      "sourceName": "浙江大学集成电路学院招生信息",
+      "sourceUrl": "https://ic.zju.edu.cn/2026/0807/c54024a3193921/page.htm",
+      "publishedAt": "2026-08-07T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "ic.zju.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://ic.zju.edu.cn/54024/list.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "ic.zju.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为浙江大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-3923afcc84b95e16",
+      "university": "南京大学",
+      "institute": "研究生院",
+      "title": "南京大学2027年“集成电路专项班”推荐免试研究生报名通知",
+      "summary": "南京大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "南京大学研究生招生网",
+      "sourceUrl": "https://yzb.nju.edu.cn/d4/e2/c47863a840930/page.htm",
+      "publishedAt": "2026-08-05T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.nju.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.nju.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.nju.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-02345234afc3e01c",
+      "university": "南京大学",
+      "institute": "研究生院",
+      "title": "南京大学2027年“国优计划”推荐免试硕士研究生报名通知",
+      "summary": "南京大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "南京大学研究生招生网",
+      "sourceUrl": "https://yzb.nju.edu.cn/d4/e1/c47863a840929/page.htm",
+      "publishedAt": "2026-08-05T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.nju.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.nju.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.nju.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-28423145be5d3e8b",
+      "university": "南京大学",
+      "institute": "研究生院",
+      "title": "南京大学2027年接收推荐免试研究生预报名通知",
+      "summary": "南京大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "南京大学研究生招生网",
+      "sourceUrl": "https://yzb.nju.edu.cn/d4/52/c47863a840786/page.htm",
+      "publishedAt": "2026-08-03T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.nju.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.nju.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yzb.nju.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-ae4ff1aa1fdac68c",
+      "university": "中央民族大学",
+      "institute": "研究生院",
+      "title": "2026-08-01【代发】中华民族共同体学院关于2027年接收推荐免试研究生（含直博生）预报名的通知",
+      "summary": "学院为中华民族共同体学交叉学科（设在民族学一级学科下）全国首个建设试点单位，于2025年招收中华民族共同体学首批硕博研究生。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "中央民族大学研究生招生网",
+      "sourceUrl": "https://grs.muc.edu.cn/yjsyzsw/info/1063/6029.htm",
+      "publishedAt": "2026-08-01T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "grs.muc.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://grs.muc.edu.cn/yjsyzsw/sszs.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "grs.muc.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中央民族大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-e08e7321c0ca7056",
+      "university": "中山大学",
+      "institute": "研究生院",
+      "title": "中山大学2027年接收优秀应届本科毕业生推荐免试攻读研究生报名的通知",
+      "summary": "我校现组织开展2027年接收优秀应届本科毕业生推荐免试攻读研究生报名工作，竭诚欢迎全国各高校的优秀应届本科毕业生通过推荐免试方式来我校攻读研究生。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "中山大学研究生招生网",
+      "sourceUrl": "https://graduate.sysu.edu.cn/zsw/article/538",
+      "publishedAt": "2026-07-30T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "graduate.sysu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://graduate.sysu.edu.cn/zsw/doctor",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "graduate.sysu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中山大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-17a60b8821953ab2",
+      "university": "哈尔滨工业大学",
+      "institute": "研究生院",
+      "title": "2027年接收优秀应届本科毕业生免试攻读研究生报名通知汇总 2026-07-28",
+      "summary": "哈尔滨工业大学竭诚欢迎全国各高校的优秀应届本科毕业生通过推荐免试方式来我校攻读研究生，已发布相关通知的招生单位如下。（陆续更新中)",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "哈尔滨工业大学研究生招生网",
+      "sourceUrl": "https://yzb.hit.edu.cn/2026/0721/c22276a397947/page.htm",
+      "publishedAt": "2026-07-28T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.hit.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.hit.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.hit.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为哈尔滨工业大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-4b76fee4a096e8a2",
+      "university": "华东师范大学",
+      "institute": "研究生院",
+      "title": "华东师范大学2027年各院系接收优秀应届本科毕业生免试攻读研究生（含本科直博）预报名通知（陆续更新）",
+      "summary": "华东师范大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "华东师范大学研究生招生网",
+      "sourceUrl": "https://yjszs.ecnu.edu.cn/c3/cb/c43265a771019/page.htm",
+      "publishedAt": "2026-07-24T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yjszs.ecnu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yjszs.ecnu.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yjszs.ecnu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为华东师范大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-683397d2e0606119",
+      "university": "华东师范大学",
+      "institute": "研究生院",
+      "title": "关于华东师范大学2027年接收优秀应届本科毕业生免试攻读研究生（含本科直博） 预报名的通知（增加国优计划）",
+      "summary": "我校2027年接收优秀应届本科毕业生免试攻读研究生（含本科直博）的工作即将启动，现将预报名工作安排通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "华东师范大学研究生招生网",
+      "sourceUrl": "https://yjszs.ecnu.edu.cn/c2/c6/c43265a770758/page.htm",
+      "publishedAt": "2026-07-24T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yjszs.ecnu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yjszs.ecnu.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yjszs.ecnu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为华东师范大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-11b3f9f77518e126",
+      "university": "清华大学",
+      "institute": "研究生院",
+      "title": "清华大学2027年硕士研究生招生专业目录_推荐免试",
+      "summary": "清华大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "清华大学研究生招生网",
+      "sourceUrl": "https://yzbm.tsinghua.edu.cn/publish/s01/s0103/detail/996743a2-3adb-4416-ac66-1e272055e0ae/1",
+      "publishedAt": "2026-07-23T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzbm.tsinghua.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tsinghua.edu.cn/zsxx/sszs/jzml.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzbm.tsinghua.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为清华大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-d2271d533b21a9ca",
+      "university": "中国海洋大学",
+      "institute": "研究生院",
+      "title": "中国海洋大学2027年接收推荐免试研究生预报名通知",
+      "summary": "欢迎报考中国海洋大学推荐免试研究生！为方便考生提前做好推荐免试申请准备工作，现就我校2027年接收优秀应届本科毕业生免试攻读研究生（含直博生）预报名工作安排通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "中国海洋大学研究生招生网",
+      "sourceUrl": "https://yz.ouc.edu.cn/2026/0723/c31626a534920/page.htm",
+      "publishedAt": "2026-07-23T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.ouc.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.ouc.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yz.ouc.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中国海洋大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-094be9c148539c02",
+      "university": "中央民族大学",
+      "institute": "研究生院",
+      "title": "2026-07-22中央民族大学关于2027年接收推荐免试研究生（含直博生）预报名的通知",
+      "summary": "中央民族大学竭诚欢迎全国各高校优秀应届本科毕业生通过推荐免试方式来我校攻读研究生。我校2027年接收优秀应届本科生免试攻读研究生（以下简称推免生）预报名的通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "中央民族大学研究生招生网",
+      "sourceUrl": "https://grs.muc.edu.cn/yjsyzsw/info/1063/5989.htm",
+      "publishedAt": "2026-07-22T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "grs.muc.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://grs.muc.edu.cn/yjsyzsw/sszs.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "grs.muc.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中央民族大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-edfc756c0dacbb9e",
+      "university": "同济大学",
+      "institute": "研究生院",
+      "title": "同济大学-北京中关村学院、上海创智学院、深圳河套学院专项2027年接收推荐免试直博生预报名的通知",
+      "summary": "var vsb_pdf_image_data = [\"/__local/9/52/72/278C9F5B079F82A4F079DF1C5BA_4EF700AD_39D51.jpg\",\"/__local/C/60/4B/7B1F037DCD92CF9D8153ABB2376_CE6995A2_…",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "同济大学研究生招生网",
+      "sourceUrl": "https://yz.tongji.edu.cn/info/1010/4226.htm",
+      "publishedAt": "2026-07-22T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.tongji.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tongji.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yz.tongji.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为同济大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-f38d68d424a80e0d",
+      "university": "同济大学",
+      "institute": "研究生院",
+      "title": "同济大学2027年“上海期智研究院未来学者计划”专项接收推免直博生预报名的通知",
+      "summary": "同济大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "同济大学研究生招生网",
+      "sourceUrl": "https://yz.tongji.edu.cn/info/1010/4225.htm",
+      "publishedAt": "2026-07-22T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.tongji.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tongji.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yz.tongji.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为同济大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
     },
     {
       "id": "neu-2027-tuimian",
@@ -59,7 +749,7 @@
       "sourceName": "东北大学研究生招生信息网",
       "sourceUrl": "https://yz.neu.edu.cn/2026/0720/c5932a458191/page.htm",
       "publishedAt": "2026-07-20T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
       "targetYear": "2027",
       "officialLevel": "B",
       "verificationStatus": "official-online",
@@ -95,6 +785,1264 @@
       "isPriority": true
     },
     {
+      "id": "live-51484e0390293f07",
+      "university": "中国农业大学",
+      "institute": "研究生院",
+      "title": "中国农业大学各院系2027年接收推荐免试研究生工作...",
+      "summary": "中国农业大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "中国农业大学研究生招生网",
+      "sourceUrl": "https://yz.cau.edu.cn/art/2026/7/20/art_41742_1123106.html",
+      "publishedAt": "2026-07-20T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.cau.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.cau.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yz.cau.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中国农业大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-4477c53a5ff0f5e2",
+      "university": "同济大学",
+      "institute": "研究生院",
+      "title": "同济大学2027年“国优计划”推荐免试研究生预报名通知",
+      "summary": "同济大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "同济大学研究生招生网",
+      "sourceUrl": "https://yz.tongji.edu.cn/info/1010/4224.htm",
+      "publishedAt": "2026-07-20T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.tongji.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tongji.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yz.tongji.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为同济大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-5658199e446e93d8",
+      "university": "哈尔滨工业大学",
+      "institute": "研究生院",
+      "title": "哈尔滨工业大学关于2027年接收优秀应届本科毕业生免试攻读研究生报名的通知 2026-07-19",
+      "summary": "哈尔滨工业大学竭诚欢迎全国各高校的优秀应届本科毕业生通过推荐免试方式来我校攻读研究生。我校2027年接收优秀应届本科毕业生免试攻读研究生报名的通知如下：",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "哈尔滨工业大学研究生招生网",
+      "sourceUrl": "https://yzb.hit.edu.cn/2026/0717/c22276a397589/page.htm",
+      "publishedAt": "2026-07-19T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.hit.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.hit.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.hit.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为哈尔滨工业大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-23c04d97270154ff",
+      "university": "大连理工大学",
+      "institute": "研究生院",
+      "title": "关于大连理工大学各院系接收2027年推荐免试研究生预报名陆续开放的通知",
+      "summary": "为方便各位考生申报大连理工大学，现开通“大连理工大学接收推荐免试攻读研究生预报名系统”，网址为https://yjszs.dlut.edu.cn/zsbm/logon，现将有关事项说明如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "大连理工大学研究生招生网",
+      "sourceUrl": "https://gs.dlut.edu.cn/info/1173/51492.htm",
+      "publishedAt": "2026-07-14T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gs.dlut.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gs.dlut.edu.cn/yjszs.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "gs.dlut.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为大连理工大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-c9c57592013aea7c",
+      "university": "东南大学",
+      "institute": "研究生院",
+      "title": "东南大学各院、系（所）2027年接收推荐免试研究生报名通知汇总",
+      "summary": "东南大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "东南大学研究生招生网",
+      "sourceUrl": "https://yzb.seu.edu.cn/2026/0707/c6676a575749/page.htm",
+      "publishedAt": "2026-07-07T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.seu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.seu.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.seu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为东南大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-374e6c987f76a838",
+      "university": "同济大学",
+      "institute": "研究生院",
+      "title": "各学院2027年接收推荐免试研究生（含直接攻博）预报名通知汇总（更新中）",
+      "summary": "同济大学2027年接收推荐免试研究生（含直接攻博）预报名工作现已启动，请有意向报考我校的考生及时查看《同济大学2027年接收推荐免试研究生（含直接攻博）预报名通知》及报考院系的相关通知，并按照院系通知的时间节点在我校研究生报考服务系统中进行预报名。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "同济大学研究生招生网",
+      "sourceUrl": "https://yz.tongji.edu.cn/info/1010/4220.htm",
+      "publishedAt": "2026-07-06T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.tongji.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.tongji.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yz.tongji.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为同济大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-ee3d9b0e5f3d04c2",
+      "university": "东南大学",
+      "institute": "研究生院",
+      "title": "东南大学2027年接收推荐免试研究生报名通知",
+      "summary": "我校拟于7月陆续开展接收推荐免试研究生报名工作，符合条件的申请者，请登录东南大学研究生报考服务系统（https://gsas.seu.edu.cn/logon，以下简称“系统”）报名。报名时间及相关安排参见各学院通知（陆续发布）。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "东南大学研究生招生网",
+      "sourceUrl": "https://yzb.seu.edu.cn/2026/0706/c6676a575627/page.htm",
+      "publishedAt": "2026-07-06T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.seu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.seu.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.seu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为东南大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-0cec14b157d644cc",
+      "university": "北京大学",
+      "institute": "研究生院",
+      "title": "北京大学城市与环境学院2026年“全国优秀大学生暑期夏令营”报名通知 2026-07-03",
+      "summary": "北京大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "北京大学研究生招生网",
+      "sourceUrl": "https://ues.pku.edu.cn/jyjx/yjsjy/zsxx/68b5920ec8a945eb8a392caf8887a017.htm",
+      "publishedAt": "2026-07-03T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "ues.pku.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://admission.pku.edu.cn/xly/index.htm",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "ues.pku.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为北京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-735f4b794c17777f",
+      "university": "复旦大学",
+      "institute": "研究生院",
+      "title": "复旦大学招收2027级推荐免试研究生报名通知",
+      "summary": "复旦大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "复旦大学研究生招生网",
+      "sourceUrl": "https://gsao.fudan.edu.cn/fb/0b/c15029a785163/page.htm",
+      "publishedAt": "2026-07-03T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gsao.fudan.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gsao.fudan.edu.cn/15029/list.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "gsao.fudan.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为复旦大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-673c473b3b24a435",
+      "university": "大连理工大学",
+      "institute": "研究生院",
+      "title": "我校各学部（学院）2027届优秀大学生暑期研学营通知汇总",
+      "summary": "现将我校各学部（学院）2027届优秀大学生暑期研学营通知汇总如下（持续更新中）",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "大连理工大学研究生招生网",
+      "sourceUrl": "https://gs.dlut.edu.cn/info/1173/51472.htm",
+      "publishedAt": "2026-07-01T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gs.dlut.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gs.dlut.edu.cn/yjszs.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "gs.dlut.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为大连理工大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-709da2a60e59d282",
+      "university": "华南理工大学",
+      "institute": "研究生招生",
+      "title": "华工新青年 湾区新力量丨2027MBA青年领袖体验营邀你同行！",
+      "summary": "研招网院校政策已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "研招网院校政策",
+      "sourceUrl": "https://mp.weixin.qq.com/s/UZugEylIppHaZ_gE1sK5nw",
+      "publishedAt": "2026-06-26T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "A",
+      "verificationStatus": "official-online",
+      "sourceDomain": "mp.weixin.qq.com",
+      "discoveredBy": "official-aggregator",
+      "indexedByUrl": "https://yz.chsi.com.cn/kyzx/yxzc/",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "mp.weixin.qq.com"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "研招网索引及原文已在线核验"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-c008beacf9a5051c",
+      "university": "四川大学",
+      "institute": "研究生院",
+      "title": "四川大学2026年优秀大学生暑期夏令营即将开启",
+      "summary": "四川大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "四川大学研究生招生网",
+      "sourceUrl": "https://yz.scu.edu.cn/zsxx/Details/16ff5916-8421-4ff0-bd4c-a65513b94cab",
+      "publishedAt": "2026-06-24T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.scu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.scu.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "yz.scu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为四川大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-d2268065f2d7c83b",
+      "university": "重庆大学",
+      "institute": "研究生院",
+      "title": "重庆大学2027年推荐免试研究生（含直博生）招生预报名公告..",
+      "summary": "重庆大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "重庆大学研究生招生网",
+      "sourceUrl": "https://yz.cqu.edu.cn/news/2026-06/2553.html",
+      "publishedAt": "2026-06-22T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.cqu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.cqu.edu.cn/ss_news.html",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yz.cqu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为重庆大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-101fe8f3b86beeb0",
+      "university": "清华大学",
+      "institute": "研究生招生",
+      "title": "清华大学经管学院2027年硕士推免最新通知",
+      "summary": "我校采取网上报名并提交电子材料方式接收申请，请符合申请条件的申请人（包括本校应届生）登录清华大学研究生申请服务系统（https://yzbm.tsinghua.edu.cn）填报信息。申请服务系统定于2026年7月1日上午10:00开放，2026年7月28日下午15:00关闭。如有变更将在清华…",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "研招网推免招生简章",
+      "sourceUrl": "https://masters.sem.tsinghua.edu.cn/info/1291/3612.htm",
+      "publishedAt": "2026-06-18T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "A",
+      "verificationStatus": "official-online",
+      "sourceDomain": "masters.sem.tsinghua.edu.cn",
+      "discoveredBy": "official-aggregator",
+      "indexedByUrl": "https://yz.chsi.com.cn/kyzx/zsjz/tmjz/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "masters.sem.tsinghua.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "研招网索引及原文已在线核验"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-13357108e82b6604",
+      "university": "北京大学",
+      "institute": "研究生院",
+      "title": "北京大学人工智能研究院关于举办2026年优秀大学生夏令营的通知",
+      "summary": "为增进青年学子对人工智能与交叉学科前沿研究的了解，促进全国高校优秀大学生之间的学术交流，北京大学人工智能研究院将举办2026年优秀大学生夏令营活动。活动举行时间为2026年7月13日—15日，地点为北京大学燕园校区。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "北京大学研究生招生网",
+      "sourceUrl": "https://www.ai.pku.edu.cn/info/1088/4090.htm",
+      "publishedAt": "2026-06-18T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "www.ai.pku.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://admission.pku.edu.cn/xly/index.htm",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "www.ai.pku.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为北京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-b141019da976f780",
+      "university": "北京大学",
+      "institute": "研究生院",
+      "title": "北京大学软件与微电子学院2026年全国优秀大学生夏令营通知",
+      "summary": "北京大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "北京大学研究生招生网",
+      "sourceUrl": "https://ss.pku.edu.cn/zsxx/zstz/08b3e84f435b4cab85fbf7b8f3aaea0a.htm",
+      "publishedAt": "2026-06-18T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "ss.pku.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://admission.pku.edu.cn/xly/index.htm",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "ss.pku.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为北京大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-0244c52a5e3110a2",
+      "university": "厦门大学",
+      "institute": "生命科学学院",
+      "title": "2026-06-12厦门大学生命科学学院2026年优秀大学生夏令营活动报名指南",
+      "summary": "为促进全国生命科学领域优秀大学生之间的交流，增进优秀大学生对厦门大学生命科学学院的了解，厦门大学生命科学学院将于2026年7-8月举办2026年优秀大学生夏令营。夏令营分为集中参营和分散参营两种形式。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "厦门大学生命科学学院通知公告",
+      "sourceUrl": "https://life.xmu.edu.cn/info/1094/39462.htm",
+      "publishedAt": "2026-06-12T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "life.xmu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://life.xmu.edu.cn/xwdt/tzgg.htm",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "life.xmu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为厦门大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-b596b87d1af17413",
+      "university": "浙江大学",
+      "institute": "集成电路学院",
+      "title": "浙江大学集成电路学院2026年全国优秀大学生暑期学术夏令营活动通知",
+      "summary": "浙江大学集成电路学院将于2026年7月7日-9日举办“2026年全国优秀大学生暑期学术夏令营”活动（线下）。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "浙江大学集成电路学院招生信息",
+      "sourceUrl": "https://ic.zju.edu.cn/2026/0527/c54024a3166915/page.htm",
+      "publishedAt": "2026-05-27T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "ic.zju.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://ic.zju.edu.cn/54024/list.htm",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "ic.zju.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为浙江大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-b4b3767cefc63159",
+      "university": "北京大学",
+      "institute": "研究生院",
+      "title": "北京大学信息管理系关于举办“2026年全国优秀大学生夏令营”活动的通知 2026-06-15",
+      "summary": "北京大学研究生招生网已收录该通知；自动同步暂未提取全文，请打开原文核对条件、材料和截止时间。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "北京大学研究生招生网",
+      "sourceUrl": "https://www.im.pku.edu.cn/zsxm/ssxm/f892661acd7e4f5bb15577bf3da54211.htm",
+      "publishedAt": "2026-06-15T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
+      "officialLevel": "B",
+      "verificationStatus": "official-indexed",
+      "sourceDomain": "www.im.pku.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://admission.pku.edu.cn/xly/index.htm",
+      "tags": [
+        "官网目录自动发现",
+        "夏令营",
+        "www.im.pku.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已由北京大学官网目录收录"
+        },
+        {
+          "label": "全文状态",
+          "value": "未自动提取细则，请以原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-09dae4342d445d88",
+      "university": "电子科技大学",
+      "institute": "研究生院",
+      "title": "北京中关村学院2026年“直博生夏令营”活动通知",
+      "summary": "北京中关村学院是全新的高等教育科研机构。学院秉持“极基础，极应用，极交叉”的颠覆式研究理念，整合多元创新资源，汇聚顶尖卓越师资，以科研项目为载体进行学生培养，开展前瞻性的科学探索，推动关键技术攻关及垂直应用拓展。北京中关村学院牢牢把握人工智能时代的战略机遇，“超常规”培养人才，深度深化产教融合…",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "电子科技大学研究生招生网",
+      "sourceUrl": "https://yz.uestc.edu.cn/info/1004/5740.htm",
+      "publishedAt": "2026-03-18T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.uestc.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.uestc.edu.cn/bszs/tzgg.htm",
+      "tags": [
+        "官网自动发现",
+        "夏令营",
+        "yz.uestc.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为电子科技大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-f4e3a2abe13067fe",
+      "university": "南开大学",
+      "institute": "研究生院",
+      "title": "南开大学接收2026年推荐免试（含直博）生招生工作办法",
+      "summary": "南开大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "南开大学研究生招生网",
+      "sourceUrl": "https://yzb.nankai.edu.cn/2025/0914/c5509a577579/page.htm",
+      "publishedAt": "2025-09-14T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.nankai.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.nankai.edu.cn/5509/list.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yzb.nankai.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南开大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-f941d9e2eb4f93b0",
+      "university": "南开大学",
+      "institute": "研究生院",
+      "title": "南开大学2026年接收优秀应届本科毕业生免试攻读研究生预报名的通知",
+      "summary": "南开大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "南开大学研究生招生网",
+      "sourceUrl": "https://yzb.nankai.edu.cn/2025/0706/c5509a574948/page.htm",
+      "publishedAt": "2025-07-07T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzb.nankai.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.nankai.edu.cn/5509/list.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yzb.nankai.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南开大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-52eae3afc6566b8f",
+      "university": "南京理工大学",
+      "institute": "研究生院",
+      "title": "2027年南京理工大学推荐免试研究生预报名的通知",
+      "summary": "南京理工大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "new",
+      "sourceName": "南京理工大学研究生招生网",
+      "sourceUrl": "https://gs.njust.edu.cn/zsw/a0/25/c4587a368677/page.htm",
+      "publishedAt": "2026-08-11T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gs.njust.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gs.njust.edu.cn/zsw/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "gs.njust.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京理工大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-32c9086170693f05",
+      "university": "中央财经大学",
+      "institute": "研究生院",
+      "title": "各学院接收2027年推免生（含直博生）工作的通知汇总",
+      "summary": "我校《关于开展中央财经大学接收2027年推免生（含直博生）工作的通知》（https://gs.cufe.edu.cn/info/1028/7101.htm）已发布，请务必仔细阅读并按要求完成报名程序。",
+      "phase": "本校推免",
+      "status": "new",
+      "sourceName": "中央财经大学研究生招生网",
+      "sourceUrl": "https://gs.cufe.edu.cn/info/1028/7103.htm",
+      "publishedAt": "2026-08-10T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gs.cufe.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gs.cufe.edu.cn/zsgz/sszs_sz_.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "gs.cufe.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中央财经大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-d878da52b681e71e",
+      "university": "苏州大学",
+      "institute": "研究生院",
+      "title": "关于接收2027级推荐免试研究生（含直博生）预报名的通知",
+      "summary": "苏州大学2027年接收推荐免试研究生（含直博生）预报名工作将于近日开展，现将具体事项通知如下：",
+      "phase": "预推免",
+      "status": "new",
+      "sourceName": "苏州大学研究生招生网",
+      "sourceUrl": "https://yjs.suda.edu.cn/da/52/c8386a711250/page.htm",
+      "publishedAt": "2026-08-10T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yjs.suda.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yjs.suda.edu.cn/8386/list.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yjs.suda.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为苏州大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-606427aae3e3feb9",
+      "university": "暨南大学",
+      "institute": "研究生院",
+      "title": "2027年接收全国高校优秀应届本科推免生报名公告",
+      "summary": "（四）本科毕业专业与申请研究生专业原则上应同属一个一级学科。若跨一级学科，则需提供以下材料：",
+      "phase": "本校推免",
+      "status": "new",
+      "sourceName": "暨南大学研究生招生网",
+      "sourceUrl": "https://yz.jnu.edu.cn/2026/0807/c33059a861633/page.htm",
+      "publishedAt": "2026-08-10T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.jnu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.jnu.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yz.jnu.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为暨南大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-283095db01ab47ab",
+      "university": "北京科技大学",
+      "institute": "研究生院",
+      "title": "【预推免】北京科技大学各培养单位接收2027年推荐免试硕士研究生（含直博生）预报名活动通知汇总",
+      "summary": "北京科技大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "new",
+      "sourceName": "北京科技大学研究生招生网",
+      "sourceUrl": "https://yzxc.ustb.edu.cn/xlytm/hdap/82552e6afe4e43d98a1cf364c8994e62.htm",
+      "publishedAt": "2026-08-07T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yzxc.ustb.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzxc.ustb.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "yzxc.ustb.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为北京科技大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-0326b71c4d2d2242",
+      "university": "中央财经大学",
+      "institute": "研究生院",
+      "title": "关于开展中央财经大学接收2027年推免生（含直博生）工作的通知",
+      "summary": "根据教育部、北京市和学校相关文件精神，结合学校实际，我校即将开展接收2027年推免生考核选拔工作。现将接收推免生相关工作流程通知如下：",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "中央财经大学研究生招生网",
+      "sourceUrl": "https://gs.cufe.edu.cn/info/1028/7101.htm",
+      "publishedAt": "2026-08-06T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gs.cufe.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gs.cufe.edu.cn/zsgz/sszs_sz_.htm",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "gs.cufe.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为中央财经大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": true
+    },
+    {
+      "id": "live-919f961e0a60035c",
+      "university": "华东理工大学",
+      "institute": "研究生院",
+      "title": "华东理工大学2027年接收外校推荐免试研究生（含直博生）预报名通知",
+      "summary": "推荐优秀应届本科毕业生免试攻读研究生（以下简称推免）是研究生多元招生体系的重要组成部分，是加强拔尖创新人才选拔、提高研究生招生质量的重要举措。为进一步推动我校科学规范选拔、择优录取，保障考生自主报考权利，维护公平竞争环境，提高招生质量和办学水平，现就外校推免生预报名工作的有关安排通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "华东理工大学研究生招生网",
+      "sourceUrl": "https://gschool.ecust.edu.cn/2026/0720/c12708a192317/page.htm",
+      "publishedAt": "2026-07-20T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gschool.ecust.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gschool.ecust.edu.cn/12708/list.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "gschool.ecust.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为华东理工大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-a20963119b1d1208",
+      "university": "西南财经大学",
+      "institute": "研究生院",
+      "title": "西南财经大学2027级推免生（含直博生）接收工作通知",
+      "summary": "根据教育部办公厅《关于进一步规范和加强推荐优秀应届本科毕业生免试攻读研究生工作的通知》及《西南财经大学接收优秀应届本科毕业生推荐免试攻读研究生管理办法》相关规定，现将我校2027级推免生（含直博生）接收工作相关事宜通知如下：",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "西南财经大学研究生招生网",
+      "sourceUrl": "https://yz.swufe.edu.cn/info/1101/13281.htm",
+      "publishedAt": "2026-07-17T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "yz.swufe.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yz.swufe.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "本校推免",
+        "yz.swufe.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为西南财经大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-f1794ae77641fdb4",
+      "university": "西安电子科技大学",
+      "institute": "研究生院",
+      "title": "2027年接收推荐免试研究生预报名通知",
+      "summary": "为做好西安电子科技大学2027年推荐免试研究生（以下简称“推免生”）接收工作，现将推免生预报名有关事项通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "西安电子科技大学研究生招生网",
+      "sourceUrl": "https://gr.xidian.edu.cn/info/1074/20424.htm",
+      "publishedAt": "2026-07-17T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gr.xidian.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gr.xidian.edu.cn/yjsy.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "gr.xidian.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为西安电子科技大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-17bfb8ecc3449840",
+      "university": "南京航空航天大学",
+      "institute": "研究生院",
+      "title": "[07-15]2027年接收推荐免试研究生预报名通知",
+      "summary": "欢迎报考南京航空航天大学推荐免试研究生！现就我校2027年接收推荐免试研究生预报名相关工作通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "南京航空航天大学研究生招生网",
+      "sourceUrl": "https://www.graduate.nuaa.edu.cn/2026/0715/c2145a405484/page.htm",
+      "publishedAt": "2026-07-15T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "www.graduate.nuaa.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://www.graduate.nuaa.edu.cn/",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "www.graduate.nuaa.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京航空航天大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-8726668150f4b78f",
+      "university": "南京航空航天大学",
+      "institute": "研究生院",
+      "title": "2027年接收推荐免试研究生预报名通知",
+      "summary": "欢迎报考南京航空航天大学推荐免试研究生！现就我校2027年接收推荐免试研究生预报名相关工作通知如下：",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "南京航空航天大学研究生招生网",
+      "sourceUrl": "https://www.graduate.nuaa.edu.cn/2026/0715/c13487a405484/page.htm",
+      "publishedAt": "2026-07-15T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "www.graduate.nuaa.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://www.graduate.nuaa.edu.cn/sszs/list.htm",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "www.graduate.nuaa.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为南京航空航天大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
+      "id": "live-f900e2c94b7fe5d8",
+      "university": "上海财经大学",
+      "institute": "研究生院",
+      "title": "关于上海财经大学2027年接收优秀应届本科毕业生免试攻读研究生（含直博生）预报名的通知",
+      "summary": "上海财经大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "预推免",
+      "status": "updated",
+      "sourceName": "上海财经大学研究生招生网",
+      "sourceUrl": "https://gs.sufe.edu.cn/Home/Detail/8021",
+      "publishedAt": "2026-07-02T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "2027",
+      "officialLevel": "B",
+      "verificationStatus": "official-online",
+      "sourceDomain": "gs.sufe.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://gs.sufe.edu.cn/Home/List/31",
+      "tags": [
+        "官网自动发现",
+        "预推免",
+        "gs.sufe.edu.cn"
+      ],
+      "requirements": [
+        {
+          "label": "来源核验",
+          "value": "已核验为上海财经大学官方域名"
+        },
+        {
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
+        }
+      ],
+      "materials": [],
+      "isPriority": false
+    },
+    {
       "id": "hrbeu-cisse-2026-summer",
       "university": "哈尔滨工程大学",
       "institute": "智能科学与工程学院",
@@ -105,7 +2053,7 @@
       "sourceName": "哈尔滨工程大学智能科学与工程学院",
       "sourceUrl": "https://cisse.hrbeu.edu.cn/info/1219/10243.htm",
       "publishedAt": "2026-06-22T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
       "deadline": "2026-07-01T17:00:00+08:00",
       "targetYear": "2027",
       "officialLevel": "B",
@@ -142,267 +2090,712 @@
       "isPriority": false
     },
     {
-      "id": "xmu-life-2026-summer",
-      "university": "厦门大学",
-      "institute": "生命科学学院",
-      "title": "2026年优秀大学生夏令营活动报名指南",
-      "summary": "面向2027年毕业且有望取得推免资格的生命科学及相关专业本科生，报名已于2026年6月21日截止。",
-      "phase": "夏令营",
-      "status": "reference",
-      "sourceName": "厦门大学生命科学学院",
-      "sourceUrl": "https://life.xmu.edu.cn/info/1094/39462.htm",
-      "publishedAt": "2026-06-12T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
-      "deadline": "2026-06-21T23:59:00+08:00",
-      "targetYear": "2027",
+      "id": "live-3e5dba05c35cae9d",
+      "university": "南京航空航天大学",
+      "institute": "研究生院",
+      "title": "我校召开推荐免试攻读研究生专项招生政策宣讲会",
+      "summary": "6月23日，我校在将军路校区召开推荐免试攻读研究生专项招生政策宣讲会。研究生院院长、国家卓越工程师学院常务副院长陈兵，研究生院副院长张正杰、计算机科学与技术学院副书记夏冰，以及各学院学生代表到场参会。会议由国家卓越工程师学院副院长郭宇主持。",
+      "phase": "本校推免",
+      "status": "updated",
+      "sourceName": "南京航空航天大学研究生招生网",
+      "sourceUrl": "https://www.graduate.nuaa.edu.cn/2026/0625/c13276a402688/page.htm",
+      "publishedAt": "2026-06-25T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
       "officialLevel": "B",
       "verificationStatus": "official-online",
-      "sourceDomain": "life.xmu.edu.cn",
-      "discoveredBy": "manual-verification",
+      "sourceDomain": "www.graduate.nuaa.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://www.graduate.nuaa.edu.cn/",
       "tags": [
-        "2027届",
-        "夏令营",
-        "生命科学",
-        "CET-4"
+        "官网自动发现",
+        "本校推免",
+        "www.graduate.nuaa.edu.cn"
       ],
       "requirements": [
         {
-          "label": "学生身份",
-          "value": "2027年普通全日制应届本科毕业生"
+          "label": "来源核验",
+          "value": "已核验为南京航空航天大学官方域名"
         },
         {
-          "label": "专业范围",
-          "value": "生命科学、基础医学及相关专业"
-        },
-        {
-          "label": "英语",
-          "value": "CET-4达到425分及以上"
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
         }
       ],
       "materials": [],
       "isPriority": false
     },
     {
-      "id": "zju-ic-2026-summer",
-      "university": "浙江大学",
-      "institute": "集成电路学院",
-      "title": "2026年全国优秀大学生暑期学术夏令营活动通知",
-      "summary": "面向2027届相关理工科本科生的线下夏令营，申请已于2026年6月25日截止，可作为2028届准备要求的官方参考。",
+      "id": "live-db81c51016205909",
+      "university": "北京交通大学",
+      "institute": "研究生院",
+      "title": "经济管理学院2026年“第十六届全国优秀大学生夏令营”活动方案 2026-06-23",
+      "summary": "北京交通大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
       "phase": "夏令营",
-      "status": "reference",
-      "sourceName": "浙江大学集成电路学院",
-      "sourceUrl": "https://ic.zju.edu.cn/2026/0527/c54024a3166915/page.htm",
-      "publishedAt": "2026-05-27T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
-      "deadline": "2026-06-25T23:59:00+08:00",
-      "targetYear": "2027",
+      "status": "updated",
+      "sourceName": "北京交通大学研究生招生网",
+      "sourceUrl": "https://yzb.bjtu.edu.cn/sszs/2ed8ca6afc4c46cc958cf8be267682a4.htm",
+      "publishedAt": "2026-06-23T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
+      "targetYear": "长期有效",
       "officialLevel": "B",
       "verificationStatus": "official-online",
-      "sourceDomain": "ic.zju.edu.cn",
-      "discoveredBy": "manual-verification",
+      "sourceDomain": "yzb.bjtu.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzb.bjtu.edu.cn/sszs/index.htm",
       "tags": [
-        "2027届",
+        "官网自动发现",
         "夏令营",
-        "集成电路",
-        "直博英语"
+        "yzb.bjtu.edu.cn"
       ],
       "requirements": [
         {
-          "label": "学生身份",
-          "value": "2027届相关理工科本科生"
+          "label": "来源核验",
+          "value": "已核验为北京交通大学官方域名"
         },
         {
-          "label": "推免资格",
-          "value": "预期可获得推免资格"
-        },
-        {
-          "label": "直博英语",
-          "value": "CET-6≥460或TOEFL≥80或IELTS≥5.5"
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
+          "tone": "warning"
         }
       ],
-      "materials": [
-        "本科成绩单与专业年级排名并盖章",
-        "个人简历",
-        "英语水平证明（直博必交）",
-        "论文、获奖或资格证书等其他证明"
-      ],
+      "materials": [],
       "isPriority": false
     },
     {
-      "id": "moe-2026-policy",
-      "university": "教育部",
-      "institute": "高校学生司",
-      "title": "2026年全国硕士研究生招生工作管理规定",
-      "summary": "教育部现行全国硕士研究生招生管理规定，明确推荐免试应面向优秀应届本科毕业生开展选拔，招生单位须公开招生章程与录取规则。",
-      "phase": "国家政策",
-      "status": "reference",
-      "sourceName": "中华人民共和国教育部",
-      "sourceUrl": "https://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html",
-      "publishedAt": "2025-09-18T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
+      "id": "live-78a671e59ec401a5",
+      "university": "北京科技大学",
+      "institute": "研究生院",
+      "title": "北京科技大学2026年全国优秀大学生夏令营活动通知汇总",
+      "summary": "北京科技大学研究生招生网已发布该通知，具体条件、材料和截止时间请以官方原文为准。",
+      "phase": "夏令营",
+      "status": "updated",
+      "sourceName": "北京科技大学研究生招生网",
+      "sourceUrl": "https://yzxc.ustb.edu.cn/xlytm/hdap/f4aad47015e24de68ff4ef34e1ae05e7.htm",
+      "publishedAt": "2026-06-23T00:00:00+08:00",
+      "checkedAt": "2026-08-13T07:57:11.240Z",
       "targetYear": "长期有效",
-      "officialLevel": "A",
+      "officialLevel": "B",
       "verificationStatus": "official-online",
-      "sourceDomain": "www.moe.gov.cn",
-      "discoveredBy": "manual-verification",
+      "sourceDomain": "yzxc.ustb.edu.cn",
+      "discoveredBy": "official-index",
+      "indexedByUrl": "https://yzxc.ustb.edu.cn/",
       "tags": [
-        "国家政策",
-        "推荐免试",
-        "信息公开"
+        "官网自动发现",
+        "夏令营",
+        "yzxc.ustb.edu.cn"
       ],
       "requirements": [
         {
-          "label": "选拔对象",
-          "value": "优秀应届本科毕业生"
+          "label": "来源核验",
+          "value": "已核验为北京科技大学官方域名"
         },
         {
-          "label": "最终依据",
-          "value": "当年度教育部及招生单位正式文件",
+          "label": "自动提取",
+          "value": "未人工复核的细则请以官方原文为准",
           "tone": "warning"
         }
       ],
       "materials": [],
-      "isPriority": true
-    },
-    {
-      "id": "chsi-tuimian-system",
-      "university": "研招网",
-      "institute": "全国推免服务系统",
-      "title": "全国推荐免试攻读研究生信息公开管理服务系统",
-      "summary": "教育部统一的推免资格备案、志愿填报、复试通知和待录取确认平台。页面当前展示的是2026招生年度安排，2028届时间尚未发布。",
-      "phase": "系统提醒",
-      "status": "reference",
-      "sourceName": "中国研究生招生信息网",
-      "sourceUrl": "https://yz.chsi.com.cn/tm/",
-      "publishedAt": "2025-09-18T00:00:00+08:00",
-      "checkedAt": "2026-08-01T05:08:40.044Z",
-      "targetYear": "长期有效",
-      "officialLevel": "A",
-      "verificationStatus": "official-online",
-      "sourceDomain": "yz.chsi.com.cn",
-      "discoveredBy": "manual-verification",
-      "tags": [
-        "研招网",
-        "志愿填报",
-        "录取确认"
-      ],
-      "requirements": [
-        {
-          "label": "唯一平台",
-          "value": "推免资格备案及网上报考录取均通过该系统"
-        },
-        {
-          "label": "2028届时间",
-          "value": "尚未发布",
-          "tone": "warning"
-        }
-      ],
-      "materials": [],
-      "isPriority": true
+      "isPriority": false
     }
   ],
   "meta": {
-    "lastSyncedAt": "2026-08-01T05:08:40.044Z",
-    "nextSyncAt": "2026-08-01T05:38:40.836Z",
-    "sourceCount": 12,
-    "successfulSourceCount": 12,
+    "lastSyncedAt": "2026-08-13T07:57:11.240Z",
+    "nextSyncAt": "2026-08-13T08:17:39.704Z",
+    "sourceCount": 65,
+    "successfulSourceCount": 60,
+    "failedSourceCount": 5,
+    "monitoredUniversityCount": 59,
+    "discoveredUniversityCount": 35,
+    "durationMs": 28464,
     "mode": "live",
     "sources": [
+      {
+        "id": "chsi-tuimian-guides",
+        "name": "研招网推免招生简章",
+        "url": "https://yz.chsi.com.cn/kyzx/zsjz/tmjz/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
       {
         "id": "chsi-policy",
         "name": "研招网院校政策",
         "url": "https://yz.chsi.com.cn/kyzx/yxzc/",
         "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 0
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "pku-graduate",
+        "name": "北京大学研究生招生网",
+        "url": "https://admission.pku.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 4,
+        "transport": "direct"
+      },
+      {
+        "id": "ruc-graduate",
+        "name": "中国人民大学研究生招生网",
+        "url": "https://pgs.ruc.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "thu-graduate",
+        "name": "清华大学研究生招生网",
+        "url": "https://yz.tsinghua.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 3,
+        "transport": "direct"
+      },
+      {
+        "id": "buaa-graduate",
+        "name": "北京航空航天大学研究生招生网",
+        "url": "https://yzb.buaa.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "bit-graduate",
+        "name": "北京理工大学研究生招生网",
+        "url": "https://grd.bit.edu.cn/zsgz/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "cau-graduate",
+        "name": "中国农业大学研究生招生网",
+        "url": "https://yz.cau.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "bnu-graduate",
+        "name": "北京师范大学研究生招生网",
+        "url": "https://yz.bnu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "muc-graduate",
+        "name": "中央民族大学研究生招生网",
+        "url": "https://grs.muc.edu.cn/yjsyzsw/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 3,
+        "transport": "direct"
+      },
+      {
+        "id": "nankai-graduate",
+        "name": "南开大学研究生招生网",
+        "url": "https://yzb.nankai.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "tju-graduate",
+        "name": "天津大学研究生招生网",
+        "url": "https://yzb.tju.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "dlut-graduate",
+        "name": "大连理工大学研究生招生网",
+        "url": "https://gs.dlut.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "neu-graduate",
+        "name": "东北大学研究生招生网",
+        "url": "https://yz.neu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "jlu-graduate",
+        "name": "吉林大学研究生招生网",
+        "url": "https://zsb.jlu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "hit-graduate",
+        "name": "哈尔滨工业大学研究生招生网",
+        "url": "https://yzb.hit.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "fudan-graduate",
+        "name": "复旦大学研究生招生网",
+        "url": "https://gsao.fudan.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "tongji-graduate",
+        "name": "同济大学研究生招生网",
+        "url": "https://yz.tongji.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 4,
+        "transport": "direct"
+      },
+      {
+        "id": "sjtu-graduate",
+        "name": "上海交通大学研究生招生网",
+        "url": "https://yzb.sjtu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "ecnu-graduate",
+        "name": "华东师范大学研究生招生网",
+        "url": "https://yjszs.ecnu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 4,
+        "transport": "direct"
+      },
+      {
+        "id": "nju-graduate",
+        "name": "南京大学研究生招生网",
+        "url": "https://yzb.nju.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 4,
+        "transport": "direct"
+      },
+      {
+        "id": "seu-graduate",
+        "name": "东南大学研究生招生网",
+        "url": "https://yzb.seu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "zju-graduate",
+        "name": "浙江大学研究生招生网",
+        "url": "https://grs.zju.edu.cn/yjszs/",
+        "ok": false,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "error": "fetch failed"
+      },
+      {
+        "id": "ustc-graduate",
+        "name": "中国科学技术大学研究生招生网",
+        "url": "https://yz.ustc.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "xmu-graduate",
+        "name": "厦门大学研究生招生网",
+        "url": "https://zs.xmu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "sdu-graduate",
+        "name": "山东大学研究生招生网",
+        "url": "https://www.yz.sdu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "ouc-graduate",
+        "name": "中国海洋大学研究生招生网",
+        "url": "https://yz.ouc.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "whu-graduate",
+        "name": "武汉大学研究生招生网",
+        "url": "https://yz.whu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "hust-graduate",
+        "name": "华中科技大学研究生招生网",
+        "url": "https://gszs.hust.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "hnu-graduate",
+        "name": "湖南大学研究生招生网",
+        "url": "https://gra.hnu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "csu-graduate",
+        "name": "中南大学研究生招生网",
+        "url": "https://gra.csu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "nudt-graduate",
+        "name": "国防科技大学研究生招生网",
+        "url": "https://yjszs.nudt.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "sysu-graduate",
+        "name": "中山大学研究生招生网",
+        "url": "https://graduate.sysu.edu.cn/zsw/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "scut-graduate",
+        "name": "华南理工大学研究生招生网",
+        "url": "https://yz.scut.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "scu-graduate",
+        "name": "四川大学研究生招生网",
+        "url": "https://yz.scu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "uestc-graduate",
+        "name": "电子科技大学研究生招生网",
+        "url": "https://yz.uestc.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "cqu-graduate",
+        "name": "重庆大学研究生招生网",
+        "url": "https://yz.cqu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "xjtu-graduate",
+        "name": "西安交通大学研究生招生网",
+        "url": "https://yz.xjtu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "nwpu-graduate",
+        "name": "西北工业大学研究生招生网",
+        "url": "https://yzb.nwpu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "nwafu-graduate",
+        "name": "西北农林科技大学研究生招生网",
+        "url": "https://yz.nwsuaf.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "lzu-graduate",
+        "name": "兰州大学研究生招生网",
+        "url": "https://yz.lzu.edu.cn/",
+        "ok": false,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "error": "fetch failed"
+      },
+      {
+        "id": "bjtu-graduate",
+        "name": "北京交通大学研究生招生网",
+        "url": "https://gs.bjtu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "ustb-graduate",
+        "name": "北京科技大学研究生招生网",
+        "url": "https://yzxc.ustb.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "buct-graduate",
+        "name": "北京化工大学研究生招生网",
+        "url": "https://graduate.buct.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "bupt-graduate",
+        "name": "北京邮电大学研究生招生网",
+        "url": "https://yzb.bupt.edu.cn/",
+        "ok": false,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "error": "fetch failed"
+      },
+      {
+        "id": "cufe-graduate",
+        "name": "中央财经大学研究生招生网",
+        "url": "https://gs.cufe.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "uibe-graduate",
+        "name": "对外经济贸易大学研究生招生网",
+        "url": "https://yjsy.uibe.edu.cn/",
+        "ok": false,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "error": "fetch failed"
+      },
+      {
+        "id": "cupl-graduate",
+        "name": "中国政法大学研究生招生网",
+        "url": "https://yjsy.cupl.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "hrbeu-graduate",
+        "name": "哈尔滨工程大学研究生招生网",
+        "url": "https://yzb.hrbeu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "ecust-graduate",
+        "name": "华东理工大学研究生招生网",
+        "url": "https://gschool.ecust.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "sufe-graduate",
+        "name": "上海财经大学研究生招生网",
+        "url": "https://gs.sufe.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 3,
+        "transport": "direct"
+      },
+      {
+        "id": "suda-graduate",
+        "name": "苏州大学研究生招生网",
+        "url": "https://yjs.suda.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
+      },
+      {
+        "id": "nuaa-graduate",
+        "name": "南京航空航天大学研究生招生网",
+        "url": "https://www.graduate.nuaa.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 4,
+        "transport": "direct"
+      },
+      {
+        "id": "njust-graduate",
+        "name": "南京理工大学研究生招生网",
+        "url": "https://gs.njust.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "whut-graduate",
+        "name": "武汉理工大学研究生招生网",
+        "url": "https://gd.whut.edu.cn/",
+        "ok": false,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "error": "fetch failed"
+      },
+      {
+        "id": "ccnu-graduate",
+        "name": "华中师范大学研究生招生网",
+        "url": "https://gs.ccnu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "jnu-graduate",
+        "name": "暨南大学研究生招生网",
+        "url": "https://yz.jnu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "scnu-graduate",
+        "name": "华南师范大学研究生招生网",
+        "url": "https://yz.scnu.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "swjtu-graduate",
+        "name": "西南交通大学研究生招生网",
+        "url": "https://yz.swjtu.edu.cn/web/index.html",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
+      },
+      {
+        "id": "swufe-graduate",
+        "name": "西南财经大学研究生招生网",
+        "url": "https://yz.swufe.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
+      },
+      {
+        "id": "xidian-graduate",
+        "name": "西安电子科技大学研究生招生网",
+        "url": "https://gr.xidian.edu.cn/",
+        "ok": true,
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
       },
       {
         "id": "zju-ic",
         "name": "浙江大学集成电路学院招生信息",
         "url": "https://ic.zju.edu.cn/54024/list.htm",
         "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 2,
+        "transport": "direct"
       },
       {
         "id": "xmu-life",
         "name": "厦门大学生命科学学院通知公告",
         "url": "https://life.xmu.edu.cn/xwdt/tzgg.htm",
         "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
       },
       {
         "id": "hrbeu-cisse",
         "name": "哈尔滨工程大学智能科学与工程学院通知公告",
         "url": "https://cisse.hrbeu.edu.cn/fwzn/tzgg.htm",
         "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 0
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 0,
+        "transport": "direct"
       },
       {
         "id": "neu-admission",
         "name": "东北大学研究生招生信息网",
         "url": "https://yz.neu.edu.cn/5932/list.htm",
         "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:moe-2026-policy",
-        "name": "中华人民共和国教育部",
-        "url": "https://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:chsi-tuimian-system",
-        "name": "中国研究生招生信息网",
-        "url": "https://yz.chsi.com.cn/tm/",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:muc-2027-preapply",
-        "name": "中央民族大学研究生招生网",
-        "url": "https://grs.muc.edu.cn/yjsyzsw/info/1063/5989.htm",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:neu-2027-tuimian",
-        "name": "东北大学研究生招生信息网",
-        "url": "https://yz.neu.edu.cn/2026/0720/c5932a458191/page.htm",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:zju-ic-2026-summer",
-        "name": "浙江大学集成电路学院",
-        "url": "https://ic.zju.edu.cn/2026/0527/c54024a3166915/page.htm",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:xmu-life-2026-summer",
-        "name": "厦门大学生命科学学院",
-        "url": "https://life.xmu.edu.cn/info/1094/39462.htm",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
-      },
-      {
-        "id": "seed:hrbeu-cisse-2026-summer",
-        "name": "哈尔滨工程大学智能科学与工程学院",
-        "url": "https://cisse.hrbeu.edu.cn/info/1219/10243.htm",
-        "ok": true,
-        "checkedAt": "2026-08-01T05:08:40.044Z",
-        "itemCount": 1
+        "checkedAt": "2026-08-13T07:57:11.240Z",
+        "itemCount": 1,
+        "transport": "direct"
       }
     ]
   }
