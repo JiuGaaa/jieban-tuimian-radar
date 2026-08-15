@@ -116,6 +116,26 @@ await page.waitForFunction(() => (
 ))
 const restoredResultCount = await page.$$eval('.notice-card', (elements) => elements.length)
 await page.evaluate(() => {
+  const noticeButton = document.querySelector('.notice-main[data-has-materials="false"]')
+  noticeButton?.click()
+})
+await page.waitForSelector('.notice-dialog')
+const noMaterialNoticeId = await page.$eval('.notice-dialog', (element) => element.getAttribute('data-notice-id') || '')
+const noMaterialDialogCount = await page.$$eval('.notice-dialog .material-list li', (elements) => elements.length)
+await page.click('.notice-dialog .primary-button')
+await page.waitForSelector(`.task-row[data-notice-id="${noMaterialNoticeId}"]`)
+const noMaterialClaimFlow = await page.evaluate((noticeId) => ({
+  tasksTabActive: document.querySelector('.bottom-nav button:nth-child(3)')?.classList.contains('active') ?? false,
+  generatedTaskCount: document.querySelectorAll(`.task-row[data-notice-id="${noticeId}"]`).length,
+  generatedTitles: [...document.querySelectorAll(`.task-row[data-notice-id="${noticeId}"] .task-copy strong`)].map((element) => element.textContent || '')
+}), noMaterialNoticeId)
+
+await page.evaluate(() => {
+  const navButtons = document.querySelectorAll('.bottom-nav button')
+  navButtons[1]?.click()
+})
+await page.waitForSelector('.notice-main[data-has-materials="true"]')
+await page.evaluate(() => {
   const noticeButton = document.querySelector('.notice-main[data-has-materials="true"]')
   noticeButton?.click()
 })
@@ -135,7 +155,7 @@ const claimFlow = await page.evaluate(() => ({
 
 const blockingErrors = errors.filter((error) => !/^HTTP 502 http:\/\/127\.0\.0\.1:\d+\/api\/version/.test(error))
 const filterQa = { allResultCount, summerFilter, combinedFilter, restoredResultCount }
-console.log(JSON.stringify({ metrics, monitoredUniversityCount, accountCard, authDialog, updateText, filterQa, dialogMetrics, claimFlow, errors, blockingErrors }, null, 2))
+console.log(JSON.stringify({ metrics, monitoredUniversityCount, accountCard, authDialog, updateText, filterQa, noMaterialDialogCount, noMaterialClaimFlow, dialogMetrics, claimFlow, errors, blockingErrors }, null, 2))
 await browser.close()
 
 if (
@@ -154,6 +174,10 @@ if (
   combinedFilter.captionCount !== combinedFilter.cardCount ||
   !combinedFilter.allMatch ||
   restoredResultCount !== allResultCount ||
+  noMaterialDialogCount !== 0 ||
+  !noMaterialClaimFlow.tasksTabActive ||
+  noMaterialClaimFlow.generatedTaskCount < 1 ||
+  !noMaterialClaimFlow.generatedTitles.some((title) => title.includes('核对官方原文')) ||
   dialogMetrics.requirementCount === 0 ||
   dialogMetrics.materialCount === 0 ||
   claimFlow.taskCount < 8 ||

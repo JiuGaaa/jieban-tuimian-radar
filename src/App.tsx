@@ -8,6 +8,7 @@ import { useCloudSync } from './hooks/useCloudSync'
 import { useNoticeFeed } from './hooks/useNoticeFeed'
 import { usePersistentState } from './hooks/usePersistentState'
 import { formatDate, relativeDeadline } from './lib/date'
+import { buildClaimTasks, mergeClaimTasks } from './lib/claimTasks'
 import { calculateJmuSampleMatch } from './lib/matcher'
 import { filterNotices, noticeResultKey, noticeSearchText, type NoticePhaseFilter } from './lib/noticeFilter'
 import { getUniversityTier } from './lib/universityPriority'
@@ -117,6 +118,16 @@ function App() {
     if (currentIds.some((id) => !knownNoticeIds.includes(id))) setKnownNoticeIds([...new Set([...knownNoticeIds, ...currentIds])])
   }, [knownNoticeIds, meta.lastSyncedAt, notices, notificationState, setKnownNoticeIds, syncState])
 
+  useEffect(() => {
+    if (!claimedNoticeIds.length) return
+    const claimedNotices = notices.filter((notice) => claimedNoticeIds.includes(notice.id))
+    const expectedTasks = claimedNotices.flatMap(buildClaimTasks)
+    const existingTaskIds = new Set(tasks.map((task) => task.id))
+    if (expectedTasks.some((task) => !existingTaskIds.has(task.id))) {
+      setTasks((current) => mergeClaimTasks(current, expectedTasks))
+    }
+  }, [claimedNoticeIds, notices, setTasks, tasks])
+
   const navigate = (tab: TabId) => {
     setActiveTab(tab)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -130,25 +141,18 @@ function App() {
   }
 
   const claimNotice = (notice: Notice) => {
-    if (claimedNoticeIds.includes(notice.id)) {
-      setToast('这项任务已经揭榜')
-      navigate('tasks')
-      return
-    }
-
-    const generatedTasks: TaskItem[] = notice.materials.map((material, index) => ({
-      id: `${notice.id}:material:${index}`,
-      noticeId: notice.id,
-      title: material,
-      group: '材料',
-      dueAt: notice.deadline,
-      completed: false,
-      source: `${notice.university} · ${notice.institute}`
-    }))
-    setClaimedNoticeIds((current) => [...current, notice.id])
-    setTasks((current) => [...current, ...generatedTasks])
+    const generatedTasks = buildClaimTasks(notice)
+    const existingTaskIds = new Set(tasks.map((task) => task.id))
+    const addedTaskCount = generatedTasks.filter((task) => !existingTaskIds.has(task.id)).length
+    const wasClaimed = claimedNoticeIds.includes(notice.id)
+    setClaimedNoticeIds((current) => current.includes(notice.id) ? current : [...current, notice.id])
+    setTasks((current) => mergeClaimTasks(current, generatedTasks))
     setSelectedNotice(null)
-    setToast(generatedTasks.length ? `揭榜成功，已生成 ${generatedTasks.length} 项准备任务` : '揭榜成功，已加入作战台')
+    setToast(
+      addedTaskCount
+        ? `${wasClaimed ? '已补全' : '揭榜成功，已生成'} ${addedTaskCount} 项作战任务`
+        : '这项政策已经同步到作战台'
+    )
     navigate('tasks')
   }
 
@@ -534,7 +538,7 @@ function NoticeCard({ notice, saved, claimed, onOpen, onToggleSaved, onClaim }: 
           <Icon name="bookmark" size={18} fill={saved ? 'currentColor' : 'none'} />
         </button>
       </div>
-      <button className="notice-main" data-has-materials={notice.materials.length > 0} onClick={onOpen}>
+      <button className="notice-main" data-notice-id={notice.id} data-has-materials={notice.materials.length > 0} onClick={onOpen}>
         <div className="notice-identity"><strong>{notice.university}</strong><span>{notice.institute}</span></div>
         <h3>{notice.title}</h3>
         <p>{notice.summary}</p>
@@ -585,7 +589,7 @@ function TasksPage({ tasks, progress, onToggleTask, onNavigate }: TasksPageProps
             <div className="task-group-title"><h2>{group}</h2><span>{groupTasks.filter((task) => !task.completed).length} 项待办</span></div>
             <div className="task-list">
               {groupTasks.map((task) => (
-                <label key={task.id} className={task.completed ? 'task-row complete' : 'task-row'}>
+                <label key={task.id} data-notice-id={task.noticeId} className={task.completed ? 'task-row complete' : 'task-row'}>
                   <input type="checkbox" checked={task.completed} onChange={() => onToggleTask(task.id)} />
                   <span className="custom-checkbox"><Icon name="check" size={14} /></span>
                   <span className="task-copy">
@@ -899,7 +903,7 @@ function NoticeDialog({ notice, saved, claimed, onClose, onToggleSaved, onClaim 
   const deadline = relativeDeadline(notice.deadline)
   return (
     <div className="dialog-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="notice-dialog" role="dialog" aria-modal="true" aria-labelledby="notice-dialog-title">
+      <section className="notice-dialog" data-notice-id={notice.id} role="dialog" aria-modal="true" aria-labelledby="notice-dialog-title">
         <div className="dialog-handle" />
         <header>
           <div className="source-level"><span>{notice.officialLevel}</span><b>官网</b></div>
