@@ -1,15 +1,15 @@
 {
-  "versionCode": 5,
-  "versionName": "1.3.1",
+  "versionCode": 6,
+  "versionName": "1.3.2",
   "minimumSupportedVersionCode": 1,
-  "publishedAt": "2026-08-13T08:33:34.862Z",
+  "publishedAt": "2026-08-15T01:59:57.587Z",
   "releaseNotes": [
-    "修复政策阶段切换后卡片列表未可靠刷新的问题",
-    "修复搜索结果数量变化但部分安卓设备仍显示旧卡片的问题",
-    "搜索与阶段筛选现在支持组合使用，并保证计数与实际卡片一致",
-    "优化全角字符、英文大小写和多余空格的搜索匹配"
+    "修复部分政策揭榜后作战台没有新增任务的问题",
+    "没有结构化材料清单的政策也会生成官方原文核对任务",
+    "有截止时间的政策会自动生成报名提交提醒",
+    "自动补齐旧版本中已揭榜但缺失的作战任务，并避免重复添加"
   ],
-  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.1/jieban-v1.3.1.apk",
-  "sha256": "7985d442c7d2ad22505c09061aa6d702d523ad68c71d5782576352fc20a9d131",
-  "sizeBytes": 3502445
+  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.2/jieban-v1.3.2.apk",
+  "sha256": "5507c62e236c4cb12384ea2723837fd815e746a027dbefcf1e63d50000bb4da4",
+  "sizeBytes": 3502669
 }
