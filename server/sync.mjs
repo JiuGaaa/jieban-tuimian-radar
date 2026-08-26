@@ -95,7 +95,7 @@ export function compareNoticesByPriority(a, b) {
   if (tierDifference) return tierDifference
   const targetYearDifference = (targetYearWeight[a.targetYear] ?? 9) - (targetYearWeight[b.targetYear] ?? 9)
   if (targetYearDifference) return targetYearDifference
-  return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  return new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
 }
 
 function hostMatches(host, patterns) {
@@ -194,20 +194,42 @@ async function fetchDocument(url) {
   }
 }
 
-function extractDateValue(text, url = '') {
-  const direct = /(?:发布时间|发布日期|更新时间|时间|日期)[：:\s]*(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/i.exec(text)
-    || /(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/.exec(text)
-  if (direct) {
-    const [, year, month, day] = direct
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00+08:00`
-  }
+function formatPublishedAt(year, month, day) {
+  const numericYear = Number(year)
+  const numericMonth = Number(month)
+  const numericDay = Number(day)
+  const date = new Date(Date.UTC(numericYear, numericMonth - 1, numericDay))
+  if (date.getUTCFullYear() !== numericYear || date.getUTCMonth() + 1 !== numericMonth || date.getUTCDate() !== numericDay) return null
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00+08:00`
+}
+
+export function extractDateValue(text, url = '') {
+  const dateText = normalizeText(text)
+    .replace(/[*_`]/g, ' ')
+    .replace(/\b(2)\s+(0\d{2})(?=\s*[年\-/.])/g, '$1$2')
+    .replace(/\b(20)\s+(\d{2})(?=\s*[年\-/.])/g, '$1$2')
+  const direct = /(?:发布时间|发布日期|发文日期|发布于)[：:\s]*(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/i.exec(dateText)
+    || /(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/.exec(dateText)
+  if (direct) return formatPublishedAt(direct[1], direct[2], direct[3])
+  const dayFirst = /(?:^|[^\d])(\d{1,2})\s+(20\d{2})[.\-/](\d{1,2})(?=\s|$)/.exec(dateText)
+  if (dayFirst) return formatPublishedAt(dayFirst[2], dayFirst[3], dayFirst[1])
   const fromUrl = /\/(20\d{2})\/(\d{2})(\d{2})\//.exec(url)
-  if (fromUrl) return `${fromUrl[1]}-${fromUrl[2]}-${fromUrl[3]}T00:00:00+08:00`
+  if (fromUrl) return formatPublishedAt(fromUrl[1], fromUrl[2], fromUrl[3])
   return null
 }
 
 function parseDate(text, url, fallback) {
-  return extractDateValue(text, url) || fallback || new Date().toISOString()
+  return extractDateValue(text, url) || fallback || null
+}
+
+function cleanCandidateTitle(value) {
+  return normalizeText(value)
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/^\*{0,2}\d{1,2}\*{0,2}[\s_]*(?:20\d{2})[.\-/](?:\d{1,2})[\s_]*(?:#{1,6}\s*)?/, '')
+    .replace(/^(?:20\d{2})[.\-/](?:\d{1,2})[.\-/](?:\d{1,2})\s*(?:#{1,6}\s*)?/, '')
+    .replace(/^#{1,6}\s*/, '')
+    .replace(/[*_`]+/g, '')
+    .trim()
 }
 
 function classifyPhase(title) {
@@ -244,6 +266,7 @@ function extractSummaryFromMarkdown(content, source) {
 }
 
 function buildCandidate(title, href, context, source, finalIndexUrl, seen, candidates) {
+  title = cleanCandidateTitle(title)
   if (title.length < 8 || title.length > 160 || !KEYWORDS.test(title) || EXCLUDE_KEYWORDS.test(title)) return
   let url
   try {
@@ -341,9 +364,9 @@ function resolveUniversity(source, title) {
   return source.inferUniversity ? inferUniversity(title, source.university) : source.university
 }
 
-function buildIndexedNotice(candidate, source, checkedAt) {
-  const publishedAt = candidate.publishedAt || checkedAt
-  const daysOld = Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 86_400_000)
+export function buildIndexedNotice(candidate, source, checkedAt) {
+  const publishedAt = candidate.publishedAt || null
+  const daysOld = publishedAt ? Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 86_400_000) : Number.POSITIVE_INFINITY
   const hostname = new URL(candidate.url).hostname
   const university = resolveUniversity(source, candidate.title)
   return {
@@ -356,7 +379,7 @@ function buildIndexedNotice(candidate, source, checkedAt) {
     status: daysOld <= 7 ? 'new' : 'updated',
     sourceName: source.name,
     sourceUrl: candidate.url,
-    publishedAt,
+    ...(publishedAt ? { publishedAt } : {}),
     checkedAt,
     targetYear: inferTargetYear(candidate.title),
     officialLevel: source.officialLevel,
@@ -393,7 +416,7 @@ async function hydrateCandidate(candidate, source, checkedAt) {
   }
   const title = heading && KEYWORDS.test(heading) ? heading : candidate.title
   const publishedAt = parseDate(pageText, finalUrl, candidate.publishedAt)
-  const daysOld = Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 86_400_000)
+  const daysOld = publishedAt ? Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 86_400_000) : Number.POSITIVE_INFINITY
   const canonicalUrl = canonicalizeUrl(finalUrl)
   const hostname = new URL(canonicalUrl).hostname
   const university = resolveUniversity(source, `${candidate.title} ${title}`)
@@ -407,7 +430,7 @@ async function hydrateCandidate(candidate, source, checkedAt) {
     status: daysOld <= 7 ? 'new' : 'updated',
     sourceName: source.name,
     sourceUrl: canonicalUrl,
-    publishedAt,
+    ...(publishedAt ? { publishedAt } : {}),
     checkedAt,
     targetYear: inferTargetYear(`${title} ${pageText.slice(0, 5000)}`),
     officialLevel: source.officialLevel,
@@ -477,6 +500,7 @@ function noticeQuality(notice) {
 }
 
 function noticeIdentity(notice) {
+  if (notice.sourceUrl) return `url:${canonicalizeUrl(notice.sourceUrl)}`
   const normalizedTitle = notice.title.replace(/[\s：:，,。；;（）()“”"']/g, '').toLowerCase()
   return `${canonicalUniversity(notice.university)}|${normalizedTitle}`
 }

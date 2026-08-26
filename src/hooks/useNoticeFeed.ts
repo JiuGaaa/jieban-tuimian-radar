@@ -25,7 +25,7 @@ function readCache(): NoticeFeed | null {
   }
 }
 
-function validateFeed(value: unknown): NoticeFeed | null {
+export function validateFeed(value: unknown): NoticeFeed | null {
   if (!value || typeof value !== 'object') return null
   const candidate = value as Partial<NoticeFeed>
   if (!Array.isArray(candidate.notices) || !candidate.meta) return null
@@ -36,6 +36,13 @@ function validateFeed(value: unknown): NoticeFeed | null {
     } catch {
       return false
     }
+  }).map((notice) => {
+    const publishedAt = new Date(notice.publishedAt || 0).getTime()
+    const checkedAt = new Date(notice.checkedAt || 0).getTime()
+    if (notice.verificationStatus !== 'official-indexed' || !Number.isFinite(publishedAt) || !Number.isFinite(checkedAt) || Math.abs(publishedAt - checkedAt) > 5 * 60_000) return notice
+    const sanitized = { ...notice, status: 'updated' as const, isPriority: false }
+    delete sanitized.publishedAt
+    return sanitized
   })
   return notices.length ? { notices, meta: candidate.meta } : null
 }

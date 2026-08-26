@@ -39,5 +39,5 @@ export function compareNoticePriority(a: Notice, b: Notice) {
   if (tierDifference) return tierDifference
   const targetYearDifference = targetYearWeight[a.targetYear] - targetYearWeight[b.targetYear]
   if (targetYearDifference) return targetYearDifference
-  return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  return new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
 }

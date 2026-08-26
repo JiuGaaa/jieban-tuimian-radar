@@ -22,7 +22,7 @@ export interface Notice {
   status: NoticeStatus
   sourceName: string
   sourceUrl?: string
-  publishedAt: string
+  publishedAt?: string
   checkedAt: string
   deadline?: string
   targetYear: '2027' | '2028' | '长期有效'

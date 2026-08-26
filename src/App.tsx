@@ -113,7 +113,7 @@ function App() {
       return
     }
     const recentThreshold = Date.now() - 21 * 24 * 60 * 60 * 1000
-    const newNotices = notices.filter((notice) => !knownNoticeIds.includes(notice.id) && new Date(notice.publishedAt).getTime() >= recentThreshold)
+    const newNotices = notices.filter((notice) => notice.publishedAt && !knownNoticeIds.includes(notice.id) && new Date(notice.publishedAt).getTime() >= recentThreshold)
     if (newNotices.length && notificationState === 'granted') void notifyNewNotices(newNotices)
     if (currentIds.some((id) => !knownNoticeIds.includes(id))) setKnownNoticeIds([...new Set([...knownNoticeIds, ...currentIds])])
   }, [knownNoticeIds, meta.lastSyncedAt, notices, notificationState, setKnownNoticeIds, syncState])

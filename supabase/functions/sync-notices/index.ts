@@ -158,11 +158,37 @@ async function mapConcurrent<T, R>(items: T[], limit: number, mapper: (item: T) 
   return output
 }
 
+function formatPublishedAt(year: string, month: string, day: string) {
+  const numericYear = Number(year)
+  const numericMonth = Number(month)
+  const numericDay = Number(day)
+  const date = new Date(Date.UTC(numericYear, numericMonth - 1, numericDay))
+  if (date.getUTCFullYear() !== numericYear || date.getUTCMonth() + 1 !== numericMonth || date.getUTCDate() !== numericDay) return undefined
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00+08:00`
+}
+
 function extractDate(text: string, url = '') {
-  const match = /(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/.exec(text)
-  if (match) return `${match[1]}-${match[2].padStart(2, '0')}-${match[3].padStart(2, '0')}T00:00:00+08:00`
+  const dateText = normalizeText(text)
+    .replace(/[*_`]/g, ' ')
+    .replace(/\b(2)\s+(0\d{2})(?=\s*[年\-/.])/g, '$1$2')
+    .replace(/\b(20)\s+(\d{2})(?=\s*[年\-/.])/g, '$1$2')
+  const match = /(?:发布时间|发布日期|发文日期|发布于)[：:\s]*(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/i.exec(dateText)
+    || /(20\d{2})[年\-/.](\d{1,2})[月\-/.](\d{1,2})/.exec(dateText)
+  if (match) return formatPublishedAt(match[1], match[2], match[3])
+  const dayFirst = /(?:^|[^\d])(\d{1,2})\s+(20\d{2})[.\-/](\d{1,2})(?=\s|$)/.exec(dateText)
+  if (dayFirst) return formatPublishedAt(dayFirst[2], dayFirst[3], dayFirst[1])
   const pathDate = /\/(20\d{2})\/(\d{2})(\d{2})\//.exec(url)
-  return pathDate ? `${pathDate[1]}-${pathDate[2]}-${pathDate[3]}T00:00:00+08:00` : undefined
+  return pathDate ? formatPublishedAt(pathDate[1], pathDate[2], pathDate[3]) : undefined
+}
+
+function cleanCandidateTitle(value: string) {
+  return normalizeText(value)
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/^\*{0,2}\d{1,2}\*{0,2}[\s_]*(?:20\d{2})[.\-/](?:\d{1,2})[\s_]*(?:#{1,6}\s*)?/, '')
+    .replace(/^(?:20\d{2})[.\-/](?:\d{1,2})[.\-/](?:\d{1,2})\s*(?:#{1,6}\s*)?/, '')
+    .replace(/^#{1,6}\s*/, '')
+    .replace(/[*_`]+/g, '')
+    .trim()
 }
 
 function markdownLinks(content: string) {
@@ -192,14 +218,15 @@ function documentLinks(document: Document) {
 function extractCandidates(document: Document, source: ReturnType<typeof normalizeSource>) {
   const candidates = new Map<string, Candidate>()
   for (const link of documentLinks(document)) {
-    if (link.title.length < 8 || link.title.length > 160 || !KEYWORDS.test(link.title) || EXCLUDE_KEYWORDS.test(link.title)) continue
+    const title = cleanCandidateTitle(link.title)
+    if (title.length < 8 || title.length > 160 || !KEYWORDS.test(title) || EXCLUDE_KEYWORDS.test(title)) continue
     try {
       const url = new URL(link.href, document.finalUrl)
       if (!isOfficialUrl(url, source)) continue
       const canonicalUrl = canonicalizeUrl(url.href)
       const markdownContext = 'index' in link ? normalizeText(document.content.slice(Math.max(0, link.index - 80), link.index + link.title.length + 140)) : ''
       const publishedAt = extractDate('context' in link ? link.context : markdownContext, canonicalUrl)
-      candidates.set(canonicalUrl, { title: link.title, url: canonicalUrl, indexedByUrl: document.finalUrl, ...(publishedAt ? { publishedAt } : {}) })
+      candidates.set(canonicalUrl, { title, url: canonicalUrl, indexedByUrl: document.finalUrl, ...(publishedAt ? { publishedAt } : {}) })
     } catch {
       // Ignore malformed links.
     }
@@ -260,8 +287,8 @@ async function crawlSource(sourceInput: Source, checkedAt: string, knownNames: s
     return candidate.publishedAt ? Date.now() - new Date(candidate.publishedAt).getTime() <= 270 * 86_400_000 : false
   }).sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()).slice(0, source.maxItems)
   const notices = await Promise.all(current.map(async (candidate) => {
-    const publishedAt = candidate.publishedAt || checkedAt
-    const daysOld = Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 86_400_000)
+    const publishedAt = candidate.publishedAt
+    const daysOld = publishedAt ? Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 86_400_000) : Number.POSITIVE_INFINITY
     const university = inferUniversity(candidate.title, source, knownNames, aliases)
     return {
       id: await stableId(candidate.url),
@@ -273,7 +300,7 @@ async function crawlSource(sourceInput: Source, checkedAt: string, knownNames: s
       status: daysOld <= 7 ? 'new' : 'updated',
       sourceName: source.name,
       sourceUrl: candidate.url,
-      publishedAt,
+      ...(publishedAt ? { publishedAt } : {}),
       checkedAt,
       targetYear: inferTargetYear(candidate.title),
       officialLevel: source.officialLevel,
@@ -294,7 +321,17 @@ async function crawlSource(sourceInput: Source, checkedAt: string, knownNames: s
 }
 
 function noticeIdentity(notice: Record<string, unknown>) {
+  if (notice.sourceUrl) return `url:${canonicalizeUrl(String(notice.sourceUrl))}`
   return `${notice.university}|${String(notice.title).replace(/[\s：:，,。；;（）()“”"']/g, '').toLowerCase()}`
+}
+
+function sanitizeSyntheticPublishedAt(notice: Record<string, unknown>) {
+  const publishedAt = new Date(String(notice.publishedAt || 0)).getTime()
+  const checkedAt = new Date(String(notice.checkedAt || 0)).getTime()
+  if (notice.verificationStatus !== 'official-indexed' || !Number.isFinite(publishedAt) || !Number.isFinite(checkedAt) || Math.abs(publishedAt - checkedAt) > 5 * 60_000) return notice
+  const sanitized = { ...notice, status: 'updated', isPriority: false }
+  delete sanitized.publishedAt
+  return sanitized
 }
 
 Deno.serve(async (request) => {
@@ -333,12 +370,13 @@ Deno.serve(async (request) => {
   const discovered = crawlResults.flatMap((result) => result.status === 'fulfilled' ? result.value.notices : [])
   const merged = new Map<string, Record<string, unknown>>()
   for (const notice of existingRow?.feed?.notices || []) {
-    const title = String(notice.title || '')
-    const publishedAt = new Date(String(notice.publishedAt || 0)).getTime()
-    const isLongTerm = notice.targetYear === '长期有效'
+    const sanitizedNotice = sanitizeSyntheticPublishedAt(notice)
+    const title = String(sanitizedNotice.title || '')
+    const publishedAt = new Date(String(sanitizedNotice.publishedAt || 0)).getTime()
+    const isLongTerm = sanitizedNotice.targetYear === '长期有效'
     if (EXCLUDE_KEYWORDS.test(title)) continue
     if (isLongTerm && (!Number.isFinite(publishedAt) || Date.now() - publishedAt > 540 * 24 * 60 * 60_000)) continue
-    merged.set(noticeIdentity(notice), notice)
+    merged.set(noticeIdentity(sanitizedNotice), sanitizedNotice)
   }
   for (const notice of discovered) merged.set(noticeIdentity(notice), notice)
   const batchStatuses = crawlResults.map((result, index) => ({
@@ -368,7 +406,7 @@ Deno.serve(async (request) => {
   }
   for (const status of batchStatuses) statusById.set(status.id, status)
   const statuses = sources.map((source) => statusById.get(source.id)!)
-  const notices = [...merged.values()].sort((a, b) => new Date(String(b.publishedAt)).getTime() - new Date(String(a.publishedAt)).getTime())
+  const notices = [...merged.values()].sort((a, b) => new Date(String(b.publishedAt || 0)).getTime() - new Date(String(a.publishedAt || 0)).getTime())
   const successfulSourceCount = statuses.filter((source) => source.ok).length
   const failedSourceCount = statuses.filter((source) => source.checkedAt && !source.ok).length
   const pendingSourceCount = statuses.filter((source) => !source.checkedAt).length

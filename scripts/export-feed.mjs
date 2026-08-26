@@ -19,6 +19,15 @@ function isVerifiedNotice(notice) {
   }
 }
 
+function sanitizeSyntheticPublishedAt(notice) {
+  const publishedAt = new Date(String(notice?.publishedAt || 0)).getTime()
+  const checkedAt = new Date(String(notice?.checkedAt || 0)).getTime()
+  if (notice?.verificationStatus !== 'official-indexed' || !Number.isFinite(publishedAt) || !Number.isFinite(checkedAt) || Math.abs(publishedAt - checkedAt) > 5 * 60_000) return notice
+  const sanitized = { ...notice, status: 'updated', isPriority: false }
+  delete sanitized.publishedAt
+  return sanitized
+}
+
 async function readPreviousFeed() {
   if (!process.env.PUBLIC_FEED_URL) return null
   try {
@@ -34,10 +43,12 @@ async function readPreviousFeed() {
 const [freshFeed, previousFeed] = await Promise.all([refreshFeed(), readPreviousFeed()])
 const merged = new Map()
 for (const notice of previousFeed?.notices || []) {
-  if (isVerifiedNotice(notice)) merged.set(canonicalizeUrl(notice.sourceUrl), notice)
+  const sanitizedNotice = sanitizeSyntheticPublishedAt(notice)
+  if (isVerifiedNotice(sanitizedNotice)) merged.set(canonicalizeUrl(sanitizedNotice.sourceUrl), sanitizedNotice)
 }
 for (const notice of freshFeed.notices) {
-  if (isVerifiedNotice(notice)) merged.set(canonicalizeUrl(notice.sourceUrl), notice)
+  const sanitizedNotice = sanitizeSyntheticPublishedAt(notice)
+  if (isVerifiedNotice(sanitizedNotice)) merged.set(canonicalizeUrl(sanitizedNotice.sourceUrl), sanitizedNotice)
 }
 
 const exportedFeed = {
