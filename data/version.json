@@ -1,15 +1,14 @@
 {
-  "versionCode": 7,
-  "versionName": "1.3.3",
+  "versionCode": 8,
+  "versionName": "1.3.4",
   "minimumSupportedVersionCode": 1,
-  "publishedAt": "2026-08-26T02:10:31.207Z",
+  "publishedAt": "2026-11-19T03:21:26.165Z",
   "releaseNotes": [
-    "修复官网原文发布时间被最近核验时间覆盖的问题",
-    "支持21 2026.07等院校官网日期版式",
-    "无法确认发布日期时显示待官方发布，不再生成虚假日期",
-    "同一官方原文按链接去重，清理日期符号造成的重复政策"
+    "精简首页、政策、作战台和我的页面，减少重复标签与说明",
+    "调整政策卡片和详情布局，集中展示标题、院校、截止信息与操作",
+    "合并作战进度信息，简化登录、通知和更新界面"
   ],
-  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.3/jieban-v1.3.3.apk",
-  "sha256": "dae00dd43ef20f29043e5dd11d6f2b5764d0e173a29955755dca5734d112e14f",
-  "sizeBytes": 3502757
+  "downloadUrl": "https://github.com/JiuGaaa/jieban-tuimian-radar/releases/download/v1.3.4/jieban-v1.3.4.apk",
+  "sha256": "f5ef65352a9615fe7707f8400d25f523cbb9de9b9869f149cd87b8ddfe2ddbc1",
+  "sizeBytes": 3501297
 }

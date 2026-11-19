@@ -205,13 +205,10 @@ function App() {
       <header className="topbar">
         <button className="brand" onClick={() => navigate('home')} aria-label="返回一推而就首页">
           <img className="brand-mark" src={brandIconUrl} alt="" aria-hidden="true" />
-          <span>
-            <strong>一推而就</strong>
-            <small>28 推免雷达</small>
-          </span>
+          <strong>一推而就</strong>
         </button>
-        <button className={`sync-state ${syncState}`} title={syncMessage} onClick={() => void manualRefresh()} disabled={syncState === 'syncing'}>
-          <span className="sync-dot" />
+        <button className={`sync-state ${syncState}`} title={syncMessage} aria-label={`同步政策，${syncLabel}`} onClick={() => void manualRefresh()} disabled={syncState === 'syncing'}>
+          <Icon name="refresh" size={16} />
           {syncLabel}
         </button>
       </header>
@@ -228,7 +225,6 @@ function App() {
             onToggleSaved={toggleSaved}
             onClaim={claimNotice}
             onNavigate={navigate}
-            syncState={syncState}
             meta={meta}
           />
         )}
@@ -238,7 +234,6 @@ function App() {
             notices={filteredNotices}
             meta={meta}
             syncState={syncState}
-            syncMessage={syncMessage}
             search={search}
             phase={phase}
             savedNoticeIds={savedNoticeIds}
@@ -248,7 +243,6 @@ function App() {
             onOpenNotice={setSelectedNotice}
             onToggleSaved={toggleSaved}
             onClaim={claimNotice}
-            onRefresh={manualRefresh}
           />
         )}
 
@@ -336,7 +330,6 @@ interface HomePageProps {
   onToggleSaved: (id: string) => void
   onClaim: (notice: Notice) => void
   onNavigate: (tab: TabId) => void
-  syncState: SyncState
   meta: FeedMeta
 }
 
@@ -350,7 +343,6 @@ function HomePage({
   onToggleSaved,
   onClaim,
   onNavigate,
-  syncState,
   meta
 }: HomePageProps) {
   const profileReady = Boolean(profile.school && profile.major && profile.rank && profile.cohortSize)
@@ -361,15 +353,13 @@ function HomePage({
     <>
       <section className="radar-hero">
         <div className="hero-copy">
-          <span className="eyebrow">28届 · 预备监测期</span>
-          <h1>第一手消息，<br />要比截止日先到。</h1>
-          <p>只收录能追溯到教育部、研招网或高校官方域名的内容；28届正式政策尚未发布。</p>
+          <h1>28 届推免雷达</h1>
           <div className="hero-actions">
             <button className="primary-button" onClick={() => onNavigate('notices')}>
-              查看政策雷达 <Icon name="chevron" size={17} />
+              查看政策 <Icon name="chevron" size={17} />
             </button>
             <button className="text-button" onClick={() => onNavigate('profile')}>
-              {profileReady ? '更新我的档案' : '先完善档案'}
+              {profileReady ? '更新档案' : '完善档案'}
             </button>
           </div>
         </div>
@@ -385,18 +375,17 @@ function HomePage({
 
       <section className="metric-strip" aria-label="准备状态">
         <div><strong>{meta.monitoredUniversityCount || new Set(notices.map((item) => item.university)).size}</strong><span>监测院校</span></div>
-        <div><strong>{notices.filter((item) => item.targetYear === '2028').length}</strong><span>28届已发布</span></div>
+        <div><strong>{notices.filter((item) => item.targetYear === '2028').length}</strong><span>28 届政策</span></div>
         <div><strong>{openTasks.length}</strong><span>待完成任务</span></div>
       </section>
 
-      {syncState !== 'online' && <div className="status-alert verified-alert"><Icon name="alert" size={18} /><span>当前未连接实时服务，页面只保留最后一次已核验内容。</span></div>}
-
       <section className="section-block">
         <div className="section-heading">
-          <div><span className="eyebrow">优先阅读</span><h2>今日公告</h2></div>
+          <h2>近期公告</h2>
           <button onClick={() => onNavigate('notices')}>全部政策 <Icon name="chevron" size={16} /></button>
         </div>
         <div className="notice-stack">
+          {!priorityNotices.length && <p className="quiet-copy">暂无近期公告</p>}
           {priorityNotices.map((notice) => (
             <NoticeCard
               key={notice.id}
@@ -413,14 +402,14 @@ function HomePage({
 
       <section className="section-block readiness-block">
         <div className="section-heading compact">
-          <div><span className="eyebrow">准备度</span><h2>先把地基打好</h2></div>
-          <button onClick={() => onNavigate('tasks')}>进入作战台 <Icon name="chevron" size={16} /></button>
+          <h2>准备任务</h2>
+          <button onClick={() => onNavigate('tasks')}>查看作战台 <Icon name="chevron" size={16} /></button>
         </div>
         <div className="starter-list">
           {tasks.slice(0, 3).map((task) => (
             <div key={task.id} className={task.completed ? 'starter-item complete' : 'starter-item'}>
               <span className="starter-check">{task.completed ? <Icon name="check" size={15} /> : ''}</span>
-              <div><strong>{task.title}</strong><small>{task.completed ? '已完成' : task.source}</small></div>
+              <div><strong>{task.title}</strong><small>{task.source}</small></div>
             </div>
           ))}
         </div>
@@ -433,7 +422,6 @@ interface NoticesPageProps {
   notices: Notice[]
   meta: FeedMeta
   syncState: SyncState
-  syncMessage: string
   search: string
   phase: NoticePhaseFilter
   savedNoticeIds: string[]
@@ -443,14 +431,12 @@ interface NoticesPageProps {
   onOpenNotice: (notice: Notice) => void
   onToggleSaved: (id: string) => void
   onClaim: (notice: Notice) => void
-  onRefresh: () => Promise<void>
 }
 
 function NoticesPage({
   notices: visibleNotices,
   meta,
   syncState,
-  syncMessage,
   search,
   phase,
   savedNoticeIds,
@@ -459,27 +445,19 @@ function NoticesPage({
   onPhase,
   onOpenNotice,
   onToggleSaved,
-  onClaim,
-  onRefresh
+  onClaim
 }: NoticesPageProps) {
   return (
     <>
-      <section className="page-intro">
-        <span className="eyebrow">官方源优先</span>
+      <section className="page-intro policy-intro">
         <h1>政策雷达</h1>
-        <p>国家政策、本校细则、夏令营与预推免通知，统一按来源和版本核验。</p>
+        {meta.lastSyncedAt && <small>更新于 {formatSyncTime(meta.lastSyncedAt)}</small>}
       </section>
-
-      <div className={`status-alert verified-alert ${syncState}`}>
-        <Icon name="shield" size={18} />
-        <span>只展示官网或研招网可追溯内容；当前监测 {meta.monitoredUniversityCount || 0} 所院校，约每 20 分钟扫描一次。28届正式简章尚未发布，2027届信息用于提前准备参考。{meta.lastSyncedAt ? ` 最近同步：${formatSyncTime(meta.lastSyncedAt)}。` : ''}</span>
-        <button onClick={() => void onRefresh()} disabled={syncState === 'syncing'}>{syncState === 'syncing' ? '同步中' : '立即同步'}</button>
-      </div>
-      {syncState !== 'online' && <p className="sync-warning">{syncMessage}</p>}
+      {syncState === 'error' && <p className="status-alert" role="status">政策同步失败，可点右上角重试。</p>}
 
       <label className="search-box">
         <Icon name="search" size={19} />
-        <input value={search} onChange={(event) => onSearch(event.target.value)} placeholder="搜索学校、学院或政策" />
+        <input aria-label="搜索学校、学院或政策" value={search} onChange={(event) => onSearch(event.target.value)} placeholder="搜索学校、学院或政策" />
       </label>
 
       <div className="chip-row" aria-label="政策类型筛选">
@@ -488,7 +466,7 @@ function NoticesPage({
         ))}
       </div>
 
-      <div className="result-caption" aria-live="polite"><span>{visibleNotices.length} 条结果</span><span>国家级 · 985 · 211 · 其他</span></div>
+      <div className="result-caption" aria-live="polite"><span>{visibleNotices.length} 条政策</span></div>
       <div
         key={noticeResultKey(visibleNotices, phase, search)}
         className="notice-stack"
@@ -528,24 +506,20 @@ function NoticeCard({ notice, saved, claimed, onOpen, onToggleSaved, onClaim }: 
   const tierClass = universityTier === '国家级' ? 'national' : universityTier
   return (
     <article className="notice-card" data-phase={notice.phase} data-search-text={noticeSearchText(notice)}>
-      <div className="notice-topline">
-        <div className="source-level">
-          <span>{notice.officialLevel}</span>
-          {universityTier !== '其他' && <span className={`school-tier tier-${tierClass}`}>{universityTier}</span>}
-          <b>官网</b>
-        </div>
-        <button className={saved ? 'icon-button saved' : 'icon-button'} onClick={onToggleSaved} aria-label={saved ? '取消收藏' : '收藏'}>
-          <Icon name="bookmark" size={18} fill={saved ? 'currentColor' : 'none'} />
-        </button>
-      </div>
-      <button className="notice-main" data-notice-id={notice.id} data-has-materials={notice.materials.length > 0} onClick={onOpen}>
-        <div className="notice-identity"><strong>{notice.university}</strong><span>{notice.institute}</span></div>
-        <h3>{notice.title}</h3>
-        <p>{notice.summary}</p>
+      <button className={`notice-save icon-button${saved ? ' saved' : ''}`} onClick={onToggleSaved} aria-label={saved ? '取消收藏' : '收藏'}>
+        <Icon name="bookmark" size={18} fill={saved ? 'currentColor' : 'none'} />
       </button>
-      <div className="notice-tags">{notice.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
+      <button className="notice-main" data-notice-id={notice.id} data-has-materials={notice.materials.length > 0} onClick={onOpen}>
+        <div className="notice-identity">
+          <strong>{notice.university}</strong>
+          {universityTier !== '其他' && <span className={`school-tier tier-${tierClass}`}>{universityTier}</span>}
+          <span className="notice-institute">{notice.institute}</span>
+        </div>
+        <h3>{notice.title}</h3>
+        {notice.verificationStatus !== 'official-indexed' && <p>{notice.summary}</p>}
+      </button>
       <div className="notice-footer">
-        <div className={`deadline ${deadline.tone}`}><Icon name="calendar" size={16} /><span>{deadline.label}</span></div>
+        {notice.deadline && <div className={`deadline ${deadline.tone}`}><Icon name="calendar" size={16} /><span>{deadline.label}</span></div>}
         <button className={claimed ? 'claim-button claimed' : 'claim-button'} onClick={onClaim}>
           {claimed ? <><Icon name="check" size={15} /> 已揭榜</> : '揭榜'}
         </button>
@@ -563,30 +537,23 @@ interface TasksPageProps {
 
 function TasksPage({ tasks, progress, onToggleTask, onNavigate }: TasksPageProps) {
   const groups: TaskItem['group'][] = ['准备', '材料', '报名', '提醒']
+  const completedCount = tasks.filter((task) => task.completed).length
   return (
     <>
       <section className="page-intro task-intro">
         <div>
-          <span className="eyebrow">行动清单</span>
           <h1>申请作战台</h1>
-          <p>每次揭榜都会把材料和截止节点拆成任务。</p>
+          {tasks.length > 0 && <p aria-live="polite">已完成 {completedCount} / {tasks.length} 项</p>}
         </div>
-        <div className="progress-seal" style={{ '--progress': `${progress * 3.6}deg` } as React.CSSProperties}>
-          <strong>{progress}%</strong><span>准备度</span>
-        </div>
+        {tasks.length > 0 && <div className="progress-seal" aria-hidden="true" style={{ '--progress': `${progress * 3.6}deg` } as React.CSSProperties}><strong>{progress}%</strong></div>}
       </section>
-
-      <div className="task-summary">
-        <span><b>{tasks.filter((task) => !task.completed).length}</b> 待完成</span>
-        <span><b>{tasks.filter((task) => task.completed).length}</b> 已完成</span>
-      </div>
 
       {groups.map((group) => {
         const groupTasks = tasks.filter((task) => task.group === group)
         if (!groupTasks.length) return null
         return (
           <section className="task-group" key={group}>
-            <div className="task-group-title"><h2>{group}</h2><span>{groupTasks.filter((task) => !task.completed).length} 项待办</span></div>
+            <div className="task-group-title"><h2>{group}</h2></div>
             <div className="task-list">
               {groupTasks.map((task) => (
                 <label key={task.id} data-notice-id={task.noticeId} className={task.completed ? 'task-row complete' : 'task-row'}>
@@ -654,22 +621,18 @@ function ProfilePage({
   return (
     <>
       <section className="page-intro profile-intro">
-        <span className="eyebrow">本机优先 · 登录后同步</span>
-        <h1>我的档案</h1>
-        <p>未登录时资料留在本机；登录后会在 Android 与网页版之间安全同步。</p>
+        <h1>我的</h1>
       </section>
 
       <section className={`account-card ${account.user ? 'signed-in' : 'signed-out'} ${cloudSync.state}`}>
         <div className="account-dawn" aria-hidden="true"><span /><i /></div>
         <div className="account-copy">
           <div className="account-heading">
-            <div>
-              <span className="eyebrow">云端账号</span>
-              <h2>{account.user?.email ?? '把作战进度带在身边'}</h2>
-            </div>
+            <h2>{account.user?.email ?? '云端账号'}</h2>
             <span className={`account-state ${cloudSync.state}`}>{accountStatusLabel}</span>
           </div>
-          <p>{account.user ? cloudSync.message : account.configured ? '登录后同步档案、收藏、揭榜记录和材料任务；本机资料不会被简单覆盖。' : '账号界面已经就绪，连接云端项目后即可注册和登录。'}</p>
+          {cloudSync.state === 'error' && <p role="status">{cloudSync.message}</p>}
+          {!account.user && account.configured && <p>登录后同步档案、收藏和任务。</p>}
           {account.user && cloudSync.lastSyncedAt && <small>最近保存：{formatSyncTime(cloudSync.lastSyncedAt)}</small>}
           <div className="account-actions">
             {account.user ? (
@@ -704,7 +667,7 @@ function ProfilePage({
       </section>
 
       <section className="form-section">
-        <div className="section-heading compact"><div><span className="eyebrow">基本信息</span><h2>学业档案</h2></div></div>
+        <div className="section-heading compact"><h2>学业档案</h2></div>
         <div className="form-grid">
           <Field label="本科学校"><input value={profile.school} onChange={(e) => onUpdate('school', e.target.value)} placeholder="例如：集美大学" /></Field>
           <Field label="专业"><input value={profile.major} onChange={(e) => onUpdate('major', e.target.value)} placeholder="例如：轮机工程" /></Field>
@@ -727,7 +690,7 @@ function ProfilePage({
       </section>
 
       <section className="form-section check-section">
-        <div className="section-heading compact"><div><span className="eyebrow">可解释判断</span><h2>门槛逐项核对</h2></div></div>
+        <div className="section-heading compact"><h2>资格条件</h2></div>
         <div className="check-list">
           {matchResult.checks.map((check) => (
             <div className="check-row" key={check.label}>
@@ -742,9 +705,9 @@ function ProfilePage({
 
       <section className="device-card">
         <div className="device-icon"><Icon name="bell" size={22} /></div>
-        <div><span className="eyebrow">Android 优先</span><h2>安装与通知</h2><p>{Capacitor.isNativePlatform() ? '当前正在 Android 原生容器中运行。' : '可先添加到主屏幕；原生工程将复用同一套代码。'}</p></div>
+        <h2>{Capacitor.isNativePlatform() ? '通知与更新' : '安装、通知与更新'}</h2>
         <div className="device-actions">
-          <button className="secondary-button" onClick={() => void onInstall()}>{Capacitor.isNativePlatform() ? '原生模式已启用' : '添加到主屏幕'}</button>
+          {!Capacitor.isNativePlatform() && <button className="secondary-button" onClick={() => void onInstall()}>添加到主屏幕</button>}
           <button className="primary-button" onClick={() => void onEnableNotifications()}>
             {notificationState === 'granted' ? '再次测试通知' : '开启并测试通知'}
           </button>
@@ -752,7 +715,7 @@ function ProfilePage({
         <div className={`update-status ${appUpdate.state}`}>
           <div>
             <strong>应用更新 · v{currentAppVersionName}</strong>
-            <small>{appUpdate.message}</small>
+            {(appUpdate.state === 'current' || appUpdate.state === 'error') && <small role="status">{appUpdate.state === 'current' ? '已是最新版本' : appUpdate.message}</small>}
           </div>
           {appUpdate.state === 'available' ? (
             <button className="primary-button" onClick={() => void appUpdate.download()}>下载 v{appUpdate.latest?.versionName}</button>
@@ -764,7 +727,6 @@ function ProfilePage({
         </div>
       </section>
 
-      <div className="privacy-note"><Icon name="shield" size={18} /><span>账号数据使用行级权限隔离：登录用户只能读取和修改自己的档案。退出后，本机资料仍可离线使用。</span></div>
     </>
   )
 }
@@ -831,21 +793,15 @@ function AuthDialog({ initialMode, account, onClose, onDone }: AuthDialogProps) 
   }
 
   const title = mode === 'signin' ? '登录一推而就' : mode === 'signup' ? '创建云端账号' : '设置新密码'
-  const description = mode === 'signin'
-    ? '登录后自动合并本机与云端作战进度。'
-    : mode === 'signup'
-      ? '只需邮箱和密码；注册后按邮件提示确认邮箱。'
-      : '新密码设置完成后，所有已登录设备继续使用同一账号。'
 
   return (
     <div className="dialog-backdrop auth-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-dialog-title">
         <div className="dialog-handle" />
         <header>
-          <div className="auth-brand"><img src={brandIconUrl} alt="" /><span><small>云端档案</small><strong id="auth-dialog-title">{title}</strong></span></div>
+          <div className="auth-brand"><img src={brandIconUrl} alt="" /><strong id="auth-dialog-title">{title}</strong></div>
           <button className="icon-button" onClick={onClose} aria-label="关闭"><Icon name="close" size={20} /></button>
         </header>
-        <p className="auth-description">{description}</p>
         {mode !== 'recovery' && (
           <div className="auth-tabs" role="tablist" aria-label="账号操作">
             <button className={mode === 'signin' ? 'active' : ''} onClick={() => { setMode('signin'); setFeedback('') }}>登录</button>
@@ -857,10 +813,10 @@ function AuthDialog({ initialMode, account, onClose, onDone }: AuthDialogProps) 
           <Field label={mode === 'recovery' ? '新密码' : '密码'}><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === 'signin' ? 'current-password' : 'new-password'} placeholder="至少 8 位" minLength={8} required /></Field>
           {(mode === 'signup' || mode === 'recovery') && <Field label="再次输入密码"><input type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} autoComplete="new-password" placeholder="再次输入" minLength={8} required /></Field>}
           {feedback && <div className="auth-feedback" role="status">{feedback}</div>}
+          {mode === 'signup' && <p className="auth-hint">注册后请查收验证邮件。</p>}
           <button className="primary-button auth-submit" type="submit" disabled={busy}>{busy ? '正在处理…' : mode === 'signin' ? '登录并同步' : mode === 'signup' ? '创建账号' : '保存新密码'}</button>
           {mode === 'signin' && <button className="auth-link" type="button" disabled={busy} onClick={() => void resetPassword()}>忘记密码？发送重置邮件</button>}
         </form>
-        <div className="auth-privacy"><Icon name="shield" size={17} /><span>密码由账号服务加密处理；应用不会读取或保存明文密码。</span></div>
       </section>
     </div>
   )
@@ -906,23 +862,23 @@ function NoticeDialog({ notice, saved, claimed, onClose, onToggleSaved, onClaim 
       <section className="notice-dialog" data-notice-id={notice.id} role="dialog" aria-modal="true" aria-labelledby="notice-dialog-title">
         <div className="dialog-handle" />
         <header>
-          <div className="source-level"><span>{notice.officialLevel}</span><b>官网</b></div>
+          <span className="dialog-origin">{notice.university} · {notice.institute}</span>
           <div className="dialog-header-actions">
             <button className={saved ? 'icon-button saved' : 'icon-button'} onClick={onToggleSaved} aria-label={saved ? '取消收藏' : '收藏'}><Icon name="bookmark" size={19} fill={saved ? 'currentColor' : 'none'} /></button>
             <button className="icon-button" onClick={onClose} aria-label="关闭"><Icon name="close" size={20} /></button>
           </div>
         </header>
-        <div className="dialog-title"><span>{notice.university} · {notice.institute}</span><h2 id="notice-dialog-title">{notice.title}</h2><p>{notice.summary}</p></div>
+        <div className="dialog-title"><h2 id="notice-dialog-title">{notice.title}</h2>{notice.verificationStatus !== 'official-indexed' && <p>{notice.summary}</p>}</div>
         <div className="fact-grid">
           <div><span>面向届次</span><strong>{notice.targetYear}</strong></div>
-          <div><span>截止状态</span><strong className={deadline.tone}>{deadline.label}</strong></div>
+          <div><span>截止状态</span><strong className={deadline.tone}>{notice.deadline ? deadline.label : '未收录截止时间'}</strong></div>
           <div><span>原文发布</span><strong>{formatDate(notice.publishedAt)}</strong></div>
           <div><span>最近核验</span><strong>{formatDate(notice.checkedAt)}</strong></div>
         </div>
         <div className="dialog-section"><h3>要求速览</h3><div className="requirement-list">{notice.requirements.map((item) => <div key={item.label}><span>{item.label}</span><strong className={item.tone}>{item.value}</strong></div>)}</div></div>
-        <div className="dialog-section"><h3>材料清单</h3>{notice.materials.length ? <ul className="material-list">{notice.materials.map((item) => <li key={item}><span /><p>{item}</p></li>)}</ul> : <p className="quiet-copy">官方页面未明确列出材料清单，请直接查看原文，不作推测补全。</p>}</div>
+        <div className="dialog-section"><h3>材料清单</h3>{notice.materials.length ? <ul className="material-list">{notice.materials.map((item) => <li key={item}><span /><p>{item}</p></li>)}</ul> : <p className="quiet-copy">未收录材料清单，请查看原文。</p>}</div>
         <div className="source-proof"><Icon name="shield" size={19} /><div><span>{notice.verificationStatus === 'official-indexed' ? '官方目录已收录' : '官方原文已核验'} · {notice.sourceDomain}</span><strong>{notice.sourceName}</strong></div>{notice.sourceUrl && <a href={notice.sourceUrl} target="_blank" rel="noreferrer">打开官网 <Icon name="external" size={15} /></a>}</div>
-        <footer><button className="secondary-button" onClick={onClose}>稍后处理</button><button className={claimed ? 'primary-button claimed' : 'primary-button'} onClick={onClaim}>{claimed ? '已揭榜 · 查看作战台' : '立即揭榜'}</button></footer>
+        <footer><button className={claimed ? 'primary-button claimed' : 'primary-button'} onClick={onClaim}>{claimed ? '查看作战台' : '立即揭榜'}</button></footer>
       </section>
     </div>
   )

@@ -115,8 +115,7 @@ select:focus-visible {
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12);
 }
 
-.brand strong,
-.brand small {
+.brand strong {
   display: block;
 }
 
@@ -125,13 +124,6 @@ select:focus-visible {
   font-family: "STZhongsong", "Noto Serif SC", serif;
   font-size: 19px;
   letter-spacing: 0.08em;
-}
-
-.brand small {
-  margin-top: 1px;
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 0.12em;
 }
 
 .sync-state {
@@ -162,20 +154,7 @@ select:focus-visible {
   color: #9a5b18;
 }
 
-.sync-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--amber);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px var(--amber-soft);
-}
-
-.sync-state.online .sync-dot {
-  background: #3b8c68;
-  box-shadow: 0 0 0 4px #dceee6;
-}
-
-.sync-state.syncing .sync-dot {
+.sync-state.syncing svg {
   animation: sync-pulse 1s ease-in-out infinite;
 }
 
@@ -191,7 +170,8 @@ select:focus-visible {
 .radar-hero {
   position: relative;
   display: grid;
-  min-height: 310px;
+  min-height: 200px;
+  align-items: center;
   overflow: hidden;
   color: white;
   background: var(--navy);
@@ -217,34 +197,13 @@ select:focus-visible {
   padding: 28px 0 26px 24px;
 }
 
-.eyebrow {
-  display: block;
-  color: var(--seal);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.radar-hero .eyebrow {
-  color: #f0a186;
-}
-
 .radar-hero h1 {
-  margin: 13px 0 12px;
+  margin: 0;
   font-family: "STZhongsong", "Noto Serif SC", serif;
   font-size: clamp(30px, 8vw, 42px);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.01em;
-}
-
-.radar-hero p {
-  max-width: 390px;
-  margin: 0;
-  color: #c9d5e2;
-  font-size: 13px;
-  line-height: 1.75;
 }
 
 .hero-actions {
@@ -500,52 +459,24 @@ select:focus-visible {
   background: var(--amber);
 }
 
-.notice-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 12px 0 16px;
-}
-
-.source-level {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.source-level span,
-.source-level b {
-  padding: 4px 7px;
+.school-tier {
+  flex: 0 0 auto;
+  padding: 2px 5px;
+  color: #fff;
   border-radius: 5px;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.04em;
 }
 
-.source-level span {
-  color: var(--navy-2);
-  background: #e6edf3;
-}
-
-.source-level b {
-  color: var(--amber);
-  background: var(--amber-soft);
-}
-
-.source-level .school-tier {
-  color: #fff;
-  background: var(--navy-2);
-}
-
-.source-level .tier-national {
+.tier-national {
   background: #8d3b31;
 }
 
-.source-level .tier-985 {
+.tier-985 {
   background: #bb6a20;
 }
 
-.source-level .tier-211 {
+.tier-211 {
   background: #39746f;
 }
 
@@ -570,9 +501,18 @@ select:focus-visible {
   color: var(--seal);
 }
 
+.notice-save {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+}
+
 .notice-main {
   width: 100%;
-  padding: 2px 16px 0;
+  padding: 10px 16px 0;
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -581,8 +521,13 @@ select:focus-visible {
 
 .notice-identity {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  min-height: 38px;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  gap: 3px 7px;
+  margin-right: 37px;
+  padding: 3px 0;
 }
 
 .notice-identity strong {
@@ -590,7 +535,7 @@ select:focus-visible {
   font-size: 13px;
 }
 
-.notice-identity span {
+.notice-institute {
   overflow: hidden;
   color: var(--muted);
   font-size: 11px;
@@ -616,21 +561,6 @@ select:focus-visible {
   -webkit-line-clamp: 2;
 }
 
-.notice-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 12px 16px 0;
-}
-
-.notice-tags span {
-  padding: 4px 7px;
-  color: #596979;
-  background: #f1f4f6;
-  border-radius: 5px;
-  font-size: 9px;
-}
-
 .notice-footer {
   display: flex;
   align-items: center;
@@ -639,6 +569,10 @@ select:focus-visible {
   padding: 11px 12px 11px 16px;
   background: #fafbfc;
   border-top: 1px solid #edf0f3;
+}
+
+.notice-footer .claim-button {
+  margin-left: auto;
 }
 
 .deadline {
@@ -765,11 +699,24 @@ select:focus-visible {
   line-height: 1.7;
 }
 
+.policy-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.policy-intro small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
 .status-alert {
   display: flex;
   align-items: flex-start;
   gap: 9px;
-  margin-bottom: 13px;
+  margin: 0 0 13px;
   padding: 11px 12px;
   color: #7c5118;
   background: var(--amber-soft);
@@ -777,47 +724,6 @@ select:focus-visible {
   border-radius: 10px;
   font-size: 11px;
   line-height: 1.55;
-}
-
-.status-alert svg {
-  flex: 0 0 auto;
-  margin-top: 1px;
-}
-
-.verified-alert {
-  align-items: center;
-  color: #285f4b;
-  background: #eaf5ef;
-  border-color: #c9e3d6;
-}
-
-.verified-alert.cached,
-.verified-alert.error {
-  color: #7c5118;
-  background: var(--amber-soft);
-  border-color: #e7d3b2;
-}
-
-.verified-alert span {
-  flex: 1;
-}
-
-.verified-alert button {
-  flex: 0 0 auto;
-  padding: 6px 8px;
-  color: inherit;
-  background: rgba(255, 255, 255, 0.66);
-  border: 1px solid currentColor;
-  border-radius: 8px;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.sync-warning {
-  margin: -5px 2px 12px;
-  color: #9a5b18;
-  font-size: 10px;
-  line-height: 1.5;
 }
 
 .search-box {
@@ -883,8 +789,6 @@ select:focus-visible {
 }
 
 .result-caption {
-  display: flex;
-  justify-content: space-between;
   padding: 16px 2px 9px;
   color: var(--muted);
   font-size: 10px;
@@ -921,8 +825,8 @@ select:focus-visible {
 .progress-seal {
   position: relative;
   display: grid;
-  width: 92px;
-  height: 92px;
+  width: 64px;
+  height: 64px;
   flex: 0 0 auto;
   place-content: center;
   background: conic-gradient(var(--seal) var(--progress), #d9e0e6 0deg);
@@ -932,45 +836,18 @@ select:focus-visible {
 
 .progress-seal::before {
   position: absolute;
-  inset: 7px;
+  inset: 5px;
   background: #f7f9fa;
   border-radius: 50%;
   content: "";
 }
 
-.progress-seal strong,
-.progress-seal span {
+.progress-seal strong {
   position: relative;
   z-index: 1;
   display: block;
-}
-
-.progress-seal strong {
   color: var(--navy);
-  font-size: 21px;
-}
-
-.progress-seal span {
-  margin-top: 1px;
-  color: var(--muted);
-  font-size: 9px;
-}
-
-.task-summary {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 22px;
-  padding: 13px 15px;
-  background: var(--navy);
-  border-radius: 12px;
-  color: #d1dbe6;
-  font-size: 11px;
-}
-
-.task-summary b {
-  margin-right: 3px;
-  color: white;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .task-group {
@@ -989,11 +866,6 @@ select:focus-visible {
   margin: 0;
   color: var(--navy);
   font-size: 16px;
-}
-
-.task-group-title span {
-  color: var(--muted);
-  font-size: 10px;
 }
 
 .task-list {
@@ -1153,10 +1025,6 @@ select:focus-visible {
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
-}
-
-.account-heading > div {
-  min-width: 0;
 }
 
 .account-heading h2 {
@@ -1488,6 +1356,7 @@ select:focus-visible {
 .device-card {
   display: grid;
   grid-template-columns: auto 1fr;
+  align-items: center;
   gap: 13px;
   margin-bottom: 13px;
   padding: 17px 15px;
@@ -1507,15 +1376,8 @@ select:focus-visible {
 }
 
 .device-card h2 {
-  margin: 3px 0 4px;
-  font-size: 17px;
-}
-
-.device-card p {
   margin: 0;
-  color: #b8c7d5;
-  font-size: 10px;
-  line-height: 1.5;
+  font-size: 17px;
 }
 
 .device-actions {
@@ -1524,6 +1386,10 @@ select:focus-visible {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   margin-top: 4px;
+}
+
+.device-actions > :only-child {
+  grid-column: 1 / -1;
 }
 
 .update-status {
@@ -1564,20 +1430,6 @@ select:focus-visible {
   flex: 0 0 auto;
   width: auto;
   min-width: 88px;
-}
-
-.privacy-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 3px 5px 10px;
-  color: var(--muted);
-  font-size: 9px;
-  line-height: 1.5;
-}
-
-.privacy-note svg {
-  flex: 0 0 auto;
 }
 
 .bottom-nav {
@@ -1693,6 +1545,7 @@ select:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .auth-brand {
@@ -1709,27 +1562,14 @@ select:focus-visible {
   border-radius: 11px 11px 15px 11px;
 }
 
-.auth-brand small,
 .auth-brand strong {
-  display: block;
-}
-
-.auth-brand small {
-  color: var(--seal);
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-}
-
-.auth-brand strong {
-  margin-top: 2px;
   color: var(--navy);
   font-family: "STZhongsong", "Noto Serif SC", serif;
   font-size: 20px;
 }
 
-.auth-description {
-  margin: 15px 0;
+.auth-hint {
+  margin: 0;
   color: var(--muted);
   font-size: 11px;
   line-height: 1.6;
@@ -1797,22 +1637,6 @@ select:focus-visible {
   opacity: 0.55;
 }
 
-.auth-privacy {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  margin-top: 15px;
-  padding-top: 13px;
-  color: var(--quiet);
-  border-top: 1px solid var(--line);
-  font-size: 8px;
-  line-height: 1.5;
-}
-
-.auth-privacy svg {
-  flex: 0 0 auto;
-}
-
 .dialog-handle {
   width: 38px;
   height: 4px;
@@ -1829,13 +1653,14 @@ select:focus-visible {
 
 .dialog-header-actions {
   display: flex;
+  flex: 0 0 auto;
 }
 
 .dialog-title {
   padding: 8px 2px 15px;
 }
 
-.dialog-title > span {
+.dialog-origin {
   color: var(--seal);
   font-size: 11px;
   font-weight: 800;
@@ -2028,8 +1853,6 @@ select:focus-visible {
   position: sticky;
   bottom: calc(-18px - env(safe-area-inset-bottom));
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 9px;
   margin: 20px -17px calc(-18px - env(safe-area-inset-bottom));
   padding: 12px 17px calc(14px + env(safe-area-inset-bottom));
   background: rgba(251, 250, 247, 0.96);
